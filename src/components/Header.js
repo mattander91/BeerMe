@@ -10,32 +10,13 @@ class Header extends React.Component {
       loginUsername: '',
       loginPassword: '',
       newUserName: '',
-      newPassword: '',
-      showSpinner: false
+      newPassword: ''
     }
-    this.clickLogin = this.clickLogin.bind(this);
-    this.clickSignup = this.clickSignup.bind(this);
-    this.handleLoginUsername = this.handleLoginUsername.bind(this);
-    this.handleLoginPassword = this.handleLoginPassword.bind(this);
+
     this.loginUser = this.loginUser.bind(this);
-    this.handleNewUsername = this.handleNewUsername.bind(this);
-    this.handleNewPassword = this.handleNewPassword.bind(this);
     this.signupNewUser = this.signupNewUser.bind(this);
-    this.logout = this.logout.bind(this);
-  }
-
-  handleLoginUsername(e) {
-    let username = e.target.value;
-    this.setState({
-      loginUsername: username
-    });
-  }
-
-  handleLoginPassword(e) {
-    let password = e.target.value;
-    this.setState({
-      loginPassword: password
-    });
+    this.handleInput = this.handleInput.bind(this);
+    this.handleClicks = this.handleClicks.bind(this);
   }
 
   loginUser(e) {
@@ -50,27 +31,13 @@ class Header extends React.Component {
       data: user,
       success: () => {
         sessionStorage.setItem('user', this.state.loginUsername);
-        this.props.handleHome();
+        this.props.handleClicks('Home');
         this.props.setUserInfo();
       },
       error: (err) => {
         alert('Username or password not valid');
         console.log('loginUser failed: ', err);
       }
-    });
-  }
-
-  handleNewUsername(e) {
-    let newUserName = e.target.value;
-    this.setState({
-      newUserName: newUserName
-    });
-  }
-
-  handleNewPassword(e) {
-    let newPassword = e.target.value;
-    this.setState({
-      newPassword: newPassword
     });
   }
 
@@ -96,22 +63,30 @@ class Header extends React.Component {
     });
   }
 
-  clickLogin() {
-    this.setState({clickedSignup: false});
-    this.setState({clickedLogin: !this.state.clickedLogin});
+  handleInput(e, input) {
+    let inputValue = e.target.value;
+    if (input === 'loginUsername') {
+      this.setState({loginUsername: inputValue});
+    } else if (input === 'loginPassword') {
+      this.setState({'loginPassword': inputValue});
+    } else if (input === 'newUserName') {
+      this.setState({'newUserName': inputValue});
+    } else if (input === 'newPassword') {
+      this.setState({'newPassword': inputValue});
+    }
   }
 
-  clickSignup() {
-    this.setState({clickedLogin: false});
-    this.setState({clickedSignup: !this.state.clickedSignup});
-  }
-
-  logout() {
-    this.setState({
-      clickedLogin: false,
-      clickedSignup: false
-    });
-    this.props.handleClicks('Logout');
+  handleClicks(click) {
+    if (click === 'Login') {
+      this.setState({clickedSignup: false});
+      this.setState({clickedLogin: !this.state.clickedLogin});
+    } else if (click === 'Signup') {
+      this.setState({clickedLogin: false});
+      this.setState({clickedSignup: !this.state.clickedSignup});
+    } else if (click === 'Logout') {
+      this.setState({ clickedLogin: false, clickedSignup: false });
+      this.props.handleClicks('Logout');
+    }
   }
 
   render() {
@@ -133,14 +108,13 @@ class Header extends React.Component {
 
                 }
                 {!this.props.hideHome
-                  ?
-                    <div>
+                  ? <div>
                       <span className="divider">|</span>
                       <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
                     </div>
                   : null
                 }
-                <span style={{"float": "right"}} onClick={this.logout}>Log out</span>
+                <span style={{"float": "right"}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
               </div>
             :
               <div className={this.props.headerStyle}>
@@ -149,37 +123,35 @@ class Header extends React.Component {
                   : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
                 }
                 <span className="divider">|</span>
-                <span onClick={this.clickLogin}>Login</span>
+                <span onClick={(e) => {this.handleClicks('Login')}}>Login</span>
                 <span className="divider">|</span>
-                  {this.state.clickedLogin
-                    ?
-                      <div className="auth">
-                      <img onClick={this.clickLogin} id="x-out" src="img/X-out.jpg"/>
-                        <p>Login</p>
-                        <form onSubmit={this.loginUser}>
-                          <input placeholder={'Enter Username...'} onChange={(event) => {
-                            this.handleLoginUsername(event)}
-                          }/>
-                          <input placeholder={'Enter Password...'} onChange={(event) => {
-                            this.handleLoginPassword(event)}
-                          }/>
-                        <button>Login</button>
-                       </form>
-                      </div>
-                    : null
-                  }
-                <span onClick={this.clickSignup}>Sign Up</span>
+                {this.state.clickedLogin
+                  ? <div className="auth">
+                      <img onClick={(e) => {this.handleClicks('Login')}} id="x-out" src="img/X-out.jpg"/>
+                      <p>Login</p>
+                      <form onSubmit={this.loginUser}>
+                        <input placeholder={'Enter Username...'} onChange={(e) => {
+                          this.handleInput(e, 'loginUsername')}
+                        }/>
+                        <input placeholder={'Enter Password...'} onChange={(e) => {
+                          this.handleInput(e, 'loginPassword')}
+                        }/>
+                      <button>Login</button>
+                     </form>
+                    </div>
+                  : null
+                }
+                <span onClick={(e) => {this.handleClicks('Signup')}}>Sign Up</span>
                   {this.state.clickedSignup
-                    ?
-                      <div className="auth">
-                        <img onClick={this.clickSignup} id="x-out" src="img/X-out.jpg"/>
+                    ? <div className="auth">
+                        <img onClick={(e) => {this.handleClicks('Signup')}} id="x-out" src="img/X-out.jpg"/>
                         <p>Sign Up</p>
                         <form onSubmit={this.signupNewUser}>
-                          <input placeholder={'Enter Username...'} onChange={(event) => {
-                            this.handleNewUsername(event)}
+                          <input placeholder={'Enter Username...'} onChange={(e) => {
+                            this.handleInput(e, 'newUserName')}
                           }/>
-                          <input placeholder={'Enter Password...'} onChange={(event) => {
-                            this.handleNewPassword(event)}
+                          <input placeholder={'Enter Password...'} onChange={(e) => {
+                            this.handleInput(e, 'newPassword')}
                           }/>
                         <button>Sign Up</button>
                        </form>

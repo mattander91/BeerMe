@@ -31,8 +31,7 @@ class WishList extends React.Component {
     return (
       <div>
         {!this.props.beer.noData
-          ?
-            <div className="beers-wishlist" style={{height: divHeight}}>
+          ? <div className="beers-wishlist" style={{height: divHeight}}>
               <div className="beersTitle-wishlist">{this.props.beer.name}
                 <button className="expand-wishlist" onClick={(event) => {
                   this.expand()
@@ -40,12 +39,14 @@ class WishList extends React.Component {
               </div>
               <div onMouseEnter={this.mouseOver} onMouseLeave={this.mouseOver} className="brewer">
                 {this.props.beer.brewer}
-                {this.state.hover && this.state.showItems ? <img alt="beer" src={this.props.beer.brewerIcon}/> : null}
+                {this.state.hover && this.state.showItems
+                  ? <img alt="beer" src={this.props.beer.brewerIcon}/>
+                  : null
+                }
               </div>
               <p style={{display: description}} className="description">{this.props.beer.des.split(' ').slice(0,20).join(' ')}...</p>
               {this.state.showItems
-                ?
-                  <div className="wrapper">
+                ? <div className="wrapper">
                     <div className="longDescription">
                       <p>{this.props.beer.des}</p>
                       <p style={{"font-weight": "900"}}>ABV: {this.props.beer.abv}</p>
@@ -56,7 +57,8 @@ class WishList extends React.Component {
                     <div className="bottom"><button className="wishlist-remove" onClick={this.props.removeBeer} data-id={this.props.beer.id} data-list={"deleteWishlistBeer"}>Remove from my list</button>
                     </div>
                   </div>
-                : null}
+                : null
+              }
             </div>
           : <div className="addMore-wishlist" onClick={(e) => {this.props.handleClicks('Home')}}>Add more beers to your list!</div>
         }
