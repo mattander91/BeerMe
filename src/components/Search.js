@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 
 class Search extends React.Component {
   constructor(props) {
@@ -14,12 +13,9 @@ class Search extends React.Component {
 
   onSearchChange (event) {
     let searchedTerm = event.target.value;
-    this.setState({
-      term: searchedTerm
-    });
+    this.setState({ term: searchedTerm });
   }
 
-  //Show/hide 'spinner' loading gif
   handleSpinner(word) {
     this.setState({showSpinner: !this.state.showSpinner});
   }
@@ -28,56 +24,50 @@ class Search extends React.Component {
     e.preventDefault();
     if (this.state.term.length > 0) {
       this.handleSpinner();
-      let searchObj = {
-        searched: this.state.term
-      };
+      let data = { searched: this.state.term };
+      let url = 'http://127.0.0.1:3001/beers';
       let beerList = [];
-      $.ajax({
-        type: 'GET',
-        url: 'http://127.0.0.1:3001/beers',
-        data: searchObj,
-        success: (data) => {
-          let parsed = JSON.parse(data);
-          if (parsed[0].noData) {
-            this.props.searchedBeers(parsed);
-          } else {
-            parsed.forEach((beer) => {
-              beerList.push({name: beer.name, id: beer.id, des: beer.description, icon: beer.icon, abv: beer.abv, brewer: beer.brewer, brewerIcon: beer.brewerIcon, relevance: beer.relevance});
+      this.props.ajaxCalls('GET', url, data, 'search', (data) => {
+        let parsed = JSON.parse(data);
+        if (parsed[0].noData) {
+          this.props.searchedBeers(parsed);
+        } else {
+          parsed.forEach((beer) => {
+            beerList.push({
+              name: beer.name,
+              id: beer.id,
+              des: beer.description,
+              icon: beer.icon,
+              abv: beer.abv,
+              brewer: beer.brewer,
+              brewerIcon: beer.brewerIcon,
+              relevance: beer.relevance
             });
-            this.props.searchedBeers(beerList);
-          }
-          this.handleSpinner();
-          this.setState({term: ''});
-          document.getElementById("searchInput").reset();
-        },
-        error: (err) => {
-          console.log('ajax post failed');
+          });
+          this.props.searchedBeers(beerList);
         }
+        this.handleSpinner();
+        this.setState({term: ''});
+        document.getElementById('searchInput').reset();
       });
     } else {
       alert('Search for a beer in the search bar!');
     }
   }
 
-
   render() {
     return (
       <div>
-        <h1 id="title">Beer Me</h1>
-        <div className="search">
-          <form id="searchInput" onSubmit={(e) => {
-            this.search(e);
-          }}>
-            <input type="text" placeholder={'Search beers...'}
-              onChange={ event =>
-              this.onSearchChange(event)}/>
-            <button>
-              <span className="glyphicon glyphicon-search"></span> Search
-            </button>
+        <h1 id='title'>Beer Me</h1>
+        <div className='search'>
+          <form id='searchInput' onSubmit={(e) => {this.search(e)}}>
+            <input type='text' placeholder={'Search beers...'}
+              onChange={(e) => {this.onSearchChange(e)}}/>
+            <button>Search</button>
           </form>
         </div>
         {this.state.showSpinner
-          ? <img id="loading" src="img/beerLoader.gif"/>
+          ? <img alt='' id='loading' src='img/beerLoader.gif'/>
           : null
         }
       </div>

@@ -22,10 +22,25 @@ class App extends React.Component {
     this.setUserInfo = this.setUserInfo.bind(this);
     this.removeBeer = this.removeBeer.bind(this);
     this.handleClicks = this.handleClicks.bind(this);
+    this.ajaxCalls = this.ajaxCalls.bind(this);
   }
 
   componentDidMount() {
     this.setUserInfo();
+  }
+
+  ajaxCalls(type, url, data, caller, callback) {
+    $.ajax({
+      type: type,
+      url: url,
+      data: data,
+      success: (data) => {
+        callback(data);
+      },
+      error: (error) => {
+        console.log('error on ajax call from ' + caller + ': ' , error);
+      }
+    });
   }
 
   setUserInfo() {
@@ -34,59 +49,34 @@ class App extends React.Component {
       currentUser: currentUser
     });
     if (currentUser) {
-      $.ajax({
-        type: 'GET',
-        url: 'http://127.0.0.1:3001/getUserInfo',
-        data: {username: currentUser},
-        success: (userInfo) => {
-          this.setState({
-            tried: userInfo.beers,
-            wishList: userInfo.wishList
-          });
-        },
-        error: (data) => {
-          console.log('ajax get request failed; ', data);
-        }
+      let url = 'http://127.0.0.1:3001/getUserInfo';
+      let data = {username: currentUser};
+      this.ajaxCalls('GET', url, data, 'setUserInfo', (info) => {
+        this.setState({tried: info.beers, wishList: info.wishList});
       });
     }
   }
 
   saveBeer(beer) {
-    let user = this.state.currentUser;
     let list = beer.currentTarget.dataset.list;
-    if (user) {
-      let addBeer = {username: user, beerId: beer.currentTarget.dataset.id};
-      $.ajax({
-        type: 'POST',
-        url: 'http://127.0.0.1:3001/' + list,
-        data: addBeer,
-        success: () => {
-          this.setUserInfo();
-        },
-        error: (err) => {
-          console.log('ajax post failed')
-        }
-      });
+    if (this.state.currentUser) {
+      let data = {username: this.state.currentUser, beerId: beer.currentTarget.dataset.id};
+      let url = 'http://127.0.0.1:3001/' + list;
+      this.ajaxCalls('POST', url, data, 'saveBeer', (info) => {
+        this.setUserInfo();
+      })
     } else {
       console.log('no user logged in');
     }
   }
 
   removeBeer(beer) {
-    let user = this.state.currentUser;
     let list = beer.currentTarget.dataset.list;
-    if (user) {
-      let removeBeer = {username: user, id: beer.currentTarget.dataset.id}
-      $.ajax({
-        type: 'DELETE',
-        url: 'http://127.0.0.1:3001/' + list,
-        data: removeBeer,
-        success: () => {
-          this.setUserInfo();
-        },
-        failure: (err) => {
-          console.log(err);
-        }
+    if (this.state.currentUser) {
+      let data = {username: this.state.currentUser, id: beer.currentTarget.dataset.id}
+      let url = 'http://127.0.0.1:3001/' + list;
+      this.ajaxCalls('DELETE', url, data, 'removeBeer', (info) => {
+        this.setUserInfo();
       });
     } else {
       console.log('no user logged in');
@@ -101,8 +91,6 @@ class App extends React.Component {
       beers: sorted
     });
   }
-
-///////////////////////////////////////////////////
 
   handleClicks(click) {
     if (click === 'Home') {
@@ -121,12 +109,10 @@ class App extends React.Component {
     }
   }
 
-///////////////////////////////////////////////////
-
   render() {
     if (this.state.currentState === 'Home') {
       return (
-        <div className="master">
+        <div>
           <Header
             user={this.state.currentUser}
             setUserInfo={this.setUserInfo}
@@ -136,13 +122,14 @@ class App extends React.Component {
           />
           <Search
             searchedBeers={this.searchedBeers}
+            ajaxCalls={this.ajaxCalls}
           />
           <BeerList
             beers={this.state.beers}
             saveBeer={this.saveBeer}
             user={this.state.currentUser}
           />
-      </div>
+        </div>
       )
     } else if (this.state.currentState === 'Tried') {
       return (

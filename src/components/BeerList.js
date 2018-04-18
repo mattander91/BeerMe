@@ -9,6 +9,7 @@ const BeerList = (props) => (
           beer={beer}
           saveBeer={props.saveBeer}
           key={beer.id}
+          user={props.user}
         />
       )
     })}

@@ -95,26 +95,23 @@ class Header extends React.Component {
           {this.props.user
             ?
               <div className={this.props.headerStyle}>
-                <span className="user">Welcome, {this.props.user}</span>
+                <span className='user'>Welcome, {this.props.user}</span>
                 <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
-                <span className="divider">|</span>
+                <span className='divider'>|</span>
                 <span onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
-
                 {!this.props.about
-
-                  ? <div><span className="divider">|</span>
+                  ? <div><span className='divider'>|</span>
                     <span onClick={(e) => {this.props.handleClicks('About')}}>About</span></div>
                   : null
-
                 }
                 {!this.props.hideHome
                   ? <div>
-                      <span className="divider">|</span>
+                      <span className='divider'>|</span>
                       <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
                     </div>
                   : null
                 }
-                <span style={{"float": "right"}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
+                <span style={{'float': 'right'}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
               </div>
             :
               <div className={this.props.headerStyle}>
@@ -122,12 +119,12 @@ class Header extends React.Component {
                   ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
                   : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
                 }
-                <span className="divider">|</span>
+                <span className='divider'>|</span>
                 <span onClick={(e) => {this.handleClicks('Login')}}>Login</span>
-                <span className="divider">|</span>
+                <span className='divider'>|</span>
                 {this.state.clickedLogin
-                  ? <div className="auth">
-                      <img onClick={(e) => {this.handleClicks('Login')}} id="x-out" src="img/X-out.jpg"/>
+                  ? <div className='auth'>
+                      <img onClick={(e) => {this.handleClicks('Login')}} id='x-out' alt='' src='img/X-out.jpg'/>
                       <p>Login</p>
                       <form onSubmit={this.loginUser}>
                         <input placeholder={'Enter Username...'} onChange={(e) => {
@@ -143,8 +140,8 @@ class Header extends React.Component {
                 }
                 <span onClick={(e) => {this.handleClicks('Signup')}}>Sign Up</span>
                   {this.state.clickedSignup
-                    ? <div className="auth">
-                        <img onClick={(e) => {this.handleClicks('Signup')}} id="x-out" src="img/X-out.jpg"/>
+                    ? <div className='auth'>
+                        <img onClick={(e) => {this.handleClicks('Signup')}} id='x-out' alt='' src='img/X-out.jpg'/>
                         <p>Sign Up</p>
                         <form onSubmit={this.signupNewUser}>
                           <input placeholder={'Enter Username...'} onChange={(e) => {
