@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
-let DB_URI = 'mongodb://localhost:27017/beers';
-
-if (process.env.MONGO_DB_URI) {
-  DB_URI = process.env.MONGO_DB_URI;
-}
+let DB_URI = process.env.MONGO_DB_URI || 'mongodb://localhost:27017/beers';
 
 mongoose.connect(DB_URI, { useMongoClient: true });
 

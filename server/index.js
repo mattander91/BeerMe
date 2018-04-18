@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const UserModel = require('../database/index.js').Users;
-const BeerModel = require('../database/index.js').Beers;
 const helpers = require('../helpers/brewerydb.js');
 const cors = require('cors');
 

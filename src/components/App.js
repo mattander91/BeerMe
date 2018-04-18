@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   setUserInfo() {
-    var currentUser = sessionStorage.getItem('user');
+    let currentUser = sessionStorage.getItem('user');
     this.setState({
       currentUser: currentUser
     });
@@ -43,7 +43,6 @@ class App extends React.Component {
         url: 'http://127.0.0.1:3001/getUserInfo',
         data: {username: currentUser},
         success: (userInfo) => {
-          console.log('userInfo: ', userInfo);
           this.setState({
             tried: userInfo.beers,
             wishList: userInfo.wishList
@@ -57,10 +56,10 @@ class App extends React.Component {
   }
 
   saveBeer(beer) {
-    var user = this.state.currentUser;
-    var list = beer.currentTarget.dataset.list;
+    let user = this.state.currentUser;
+    let list = beer.currentTarget.dataset.list;
     if (user) {
-      var addBeer = {username: user, beerId: beer.currentTarget.dataset.id};
+      let addBeer = {username: user, beerId: beer.currentTarget.dataset.id};
       $.ajax({
         type: 'POST',
         url: 'http://127.0.0.1:3001/' + list,
@@ -78,10 +77,10 @@ class App extends React.Component {
   }
 
   removeBeer(beer) {
-    var user = this.state.currentUser;
-    var list = beer.currentTarget.dataset.list;
+    let user = this.state.currentUser;
+    let list = beer.currentTarget.dataset.list;
     if (user) {
-      var removeBeer = {username: user, id: beer.currentTarget.dataset.id}
+      let removeBeer = {username: user, id: beer.currentTarget.dataset.id}
       $.ajax({
         type: 'DELETE',
         url: 'http://127.0.0.1:3001/' + list,
@@ -99,7 +98,7 @@ class App extends React.Component {
   }
 
   searchedBeers(beerInfo) {
-    var sorted = beerInfo.sort((a, b) => {
+    let sorted = beerInfo.sort((a, b) => {
       return b.relevance - a.relevance;
     });
     this.setState({

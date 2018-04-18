@@ -201,3 +201,9 @@ input {
   text-decoration: underline;
 }
 
+#loading {
+  margin-top: 15px;
+  height: 100px;
+  margin-left: 50%;
+}
+

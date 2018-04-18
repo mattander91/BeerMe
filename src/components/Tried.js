@@ -54,13 +54,6 @@ class Tried extends React.Component {
                     <div className="longDescription">
                       <p>{this.props.beer.des}</p>
                       <p style={{"font-weight": "900"}}>ABV: {this.props.beer.abv}</p>
-                      <form id="notesInput" onSubmit={(e) => {
-                        this.submitNote(e, this.props.beer.id);
-                        this.resetForm(e)}}>
-                        <input type="text" placeholder={'Add notes...'} onChange={ event =>
-                          this.onNoteChange(event)}/>
-                        <button>Add</button>
-                      </form>
                     </div>
                     <div className={"img"}>
                       <img alt="beer" className="image" src={this.props.beer.icon}/>

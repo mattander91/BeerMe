@@ -5,11 +5,11 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: ''
+      term: '',
+      showSpinner: false
     }
     this.onSearchChange = this.onSearchChange.bind(this);
     this.search = this.search.bind(this);
-    this.resetForm = this.resetForm.bind(this);
   }
 
   onSearchChange (event) {
@@ -19,7 +19,13 @@ class Search extends React.Component {
     });
   }
 
+  //Show/hide 'spinner' loading gif
+  handleSpinner() {
+    this.setState({showSpinner: !this.state.showSpinner});
+  }
+
   search(e) {
+    this.handleSpinner();
     e.preventDefault();
     let searchObj = {
       searched: this.state.term
@@ -39,16 +45,14 @@ class Search extends React.Component {
           });
           this.props.searchedBeers(beerList);
         }
+        this.handleSpinner();
       },
       error: (err) => {
-        console.log('ajax post failed')
+        console.log('ajax post failed');
       }
     });
   }
 
-  resetForm() {
-    document.getElementById("searchInput").reset();
-  }
 
   render() {
     return (
@@ -57,7 +61,7 @@ class Search extends React.Component {
         <div className="search">
           <form id="searchInput" onSubmit={(e) => {
             this.search(e);
-            this.resetForm(e)}}>
+            document.getElementById("searchInput").reset();}}>
             <input type="text" placeholder={'Search beers...'} onChange={ event =>
               this.onSearchChange(event)}/>
             <button>
@@ -65,6 +69,10 @@ class Search extends React.Component {
             </button>
           </form>
         </div>
+        {this.state.showSpinner
+          ? <img id="loading" src="img/loading.gif"/>
+          : null
+        }
       </div>
     )
   }

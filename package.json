@@ -1,5 +1,5 @@
 {
-  "name": "Beer-recommendation-v2",
+  "name": "BeerMe",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,16 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattander91/BeerMe.git"
+  },
   "author": "Matthew Anderson",
-  "license": "ISC",
+  "license": "MIT",
+  "homepage": "https://github.com/mattander91/BeerMe#readme",
+  "bugs": {
+    "url": "https://github.com/mattander91/BeerMe/issues"
+  },
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
