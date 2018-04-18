@@ -53,13 +53,19 @@ class Beer extends React.Component {
                     <div className={"img"}>
                       <img alt="beer" className="image" src={this.props.beer.icon}/>
                     </div>
-                    <div className="bottom">
-                      <button className="tried-button" onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"savebeer"}>Add to my list
-                      </button>
-                      <button className="wishlist-button" onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"wishList"}>
-                        Add to wishlist
-                      </button>
-                    </div>
+                    {this.props.user
+                      ?
+                        <div className="bottom">
+                          <button className="tried-button" onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"savebeer"}>Add to my list
+                          </button>
+                          <button className="wishlist-button" onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"wishList"}>
+                            Add to wishlist
+                          </button>
+                        </div>
+                      : <div style={{"color":"red"}} className="bottom">
+                          Login or create an account to keep track of beers you've tried and add beers to your wishlist!
+                      </div>
+                    }
                   </div>
                 : null}
             </div>

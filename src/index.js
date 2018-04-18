@@ -1,8 +1,8 @@
 /*
-Color code tried and wishlist themes and buttons
-Change tried to different name
-
-
+  Smaller beer images?
+  Make beer images in line with beer name or brewery?
+  Play with colors for input and search button
+  Make sure wishlist and tried beer list colors match
 */
 
 

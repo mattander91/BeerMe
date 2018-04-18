@@ -174,6 +174,7 @@ class App extends React.Component {
           <BeerList
             beers={this.state.beers}
             saveBeer={this.saveBeer}
+            user={this.state.currentUser}
           />
       </div>
       )

@@ -1,5 +1,5 @@
 body {
-  background-image: url('https://images6.alphacoders.com/405/405948.jpg');
+background-image: url("img/Beer-Background.jpg");
   background-attachment: fixed;
 }
 
@@ -41,7 +41,6 @@ body {
   font-size: 900%;
   margin-top: 10px;
   margin-bottom: 25px;
-/*   background-color: white; */
 }
 
 .user {
@@ -260,13 +259,14 @@ body {
 .beers-tried {
   margin: auto;
   margin-bottom: 18px;
-  width: 75%;
+  width: 55%;
   border: 1px solid #FA7D3A;
   padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 20px;
   border-radius: 10px;
   text-align: left;
+  background-color: #FEFDF8;
 }
 
 
@@ -347,13 +347,14 @@ body {
 .beers-wishlist {
   margin: auto;
   margin-bottom: 18px;
-  width: 75%;
+  width: 55%;
   border: 1px solid #FACC3A;
   padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 20px;
   border-radius: 10px;
   text-align: left;
+  background-color: #FEFDF8;
 }
 
 #title-wishlist {

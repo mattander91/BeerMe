@@ -20,37 +20,42 @@ class Search extends React.Component {
   }
 
   //Show/hide 'spinner' loading gif
-  handleSpinner() {
+  handleSpinner(word) {
     this.setState({showSpinner: !this.state.showSpinner});
   }
 
   search(e) {
-    this.handleSpinner();
     e.preventDefault();
-    let searchObj = {
-      searched: this.state.term
-    };
-    let beerList = [];
-    $.ajax({
-      type: 'GET',
-      url: 'http://127.0.0.1:3001/beers',
-      data: searchObj,
-      success: (data) => {
-        let parsed = JSON.parse(data);
-        if (parsed[0].noData) {
-          this.props.searchedBeers(parsed);
-        } else {
-          parsed.forEach((beer) => {
-            beerList.push({name: beer.name, id: beer.id, des: beer.description, icon: beer.icon, abv: beer.abv, brewer: beer.brewer, brewerIcon: beer.brewerIcon, relevance: beer.relevance});
-          });
-          this.props.searchedBeers(beerList);
+    if (this.state.term.length > 0) {
+      this.handleSpinner();
+      let searchObj = {
+        searched: this.state.term
+      };
+      let beerList = [];
+      $.ajax({
+        type: 'GET',
+        url: 'http://127.0.0.1:3001/beers',
+        data: searchObj,
+        success: (data) => {
+          let parsed = JSON.parse(data);
+          if (parsed[0].noData) {
+            this.props.searchedBeers(parsed);
+          } else {
+            parsed.forEach((beer) => {
+              beerList.push({name: beer.name, id: beer.id, des: beer.description, icon: beer.icon, abv: beer.abv, brewer: beer.brewer, brewerIcon: beer.brewerIcon, relevance: beer.relevance});
+            });
+            this.props.searchedBeers(beerList);
+          }
+          this.handleSpinner();
+          this.setState({term: ''})
+        },
+        error: (err) => {
+          console.log('ajax post failed');
         }
-        this.handleSpinner();
-      },
-      error: (err) => {
-        console.log('ajax post failed');
-      }
-    });
+      });
+    } else {
+      alert('Search for a beer in the search bar!');
+    }
   }
 
 
@@ -61,8 +66,10 @@ class Search extends React.Component {
         <div className="search">
           <form id="searchInput" onSubmit={(e) => {
             this.search(e);
-            document.getElementById("searchInput").reset();}}>
-            <input type="text" placeholder={'Search beers...'} onChange={ event =>
+            document.getElementById("searchInput").reset();
+          }}>
+            <input type="text" placeholder={'Search beers...'}
+              onChange={ event =>
               this.onSearchChange(event)}/>
             <button>
               <span className="glyphicon glyphicon-search"></span> Search
@@ -70,7 +77,7 @@ class Search extends React.Component {
           </form>
         </div>
         {this.state.showSpinner
-          ? <img id="loading" src="img/Loading_icon.gif"/>
+          ? <img id="loading" src="img/beerLoader.gif"/>
           : null
         }
       </div>
