@@ -155,7 +155,7 @@ class App extends React.Component {
   render() {
     if (this.state.currentState === 'Home') {
       return (
-        <div>
+        <div className="master">
           <Header
             handleLoginClick={this.handleLoginClick}
             handleSignupClick={this.handleSignupClick}
@@ -165,6 +165,8 @@ class App extends React.Component {
             setUserInfo={this.setUserInfo}
             handleWishList={this.handleWishList}
             headerStyle={'header'}
+            handleHome={this.handleHome}
+            hideHome={true}
           />
           <Search
             searchedBeers={this.searchedBeers}

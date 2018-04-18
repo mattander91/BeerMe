@@ -129,7 +129,7 @@ class Header extends React.Component {
                 <span onClick={this.props.handleWishList}>Wishlist</span>
                 <span className="divider">|</span>
                 <span onClick={this.props.handleTried}>Beers I've Tried</span>
-                {this.props.handleHome
+                {!this.props.hideHome
                   ?
                     <div>
                       <span className="divider">|</span>
@@ -140,8 +140,9 @@ class Header extends React.Component {
                 <span style={{"float": "right"}} onClick={this.logout}>Log out</span>
               </div>
             :
-              <div>
-                <span onClick={this.clickLogin}>Login</span> &nbsp;
+              <div className={this.props.headerStyle}>
+                <span onClick={this.clickLogin}>Login</span>
+                <span className="divider">|</span>
                   {this.state.clickedLogin
                     ?
                       <div className="auth">
