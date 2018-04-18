@@ -6,18 +6,27 @@ body {
   font-family: Arial;
 }
 
+/* ********* Header *********** */
+
 .header {
   width: 100%;
   height: 55px;
   background-color: #FAB33A;
   color: white;
-  padding-top: 15px;
+  padding-top: 12px;
   cursor: pointer;
   margin-bottom: 50px;
+  padding-left: 20px;
+  padding-right: 45px;
+  font-size: 18px;
 }
 
 .header span {
-  margin-left: 15px;
+  margin-left: 25px;
+}
+
+.header div {
+  display: inline-block;
 }
 
 #title {
@@ -31,6 +40,22 @@ body {
   margin-top: 10px;
   margin-bottom: 25px;
 }
+
+.user {
+  font-size: 20px;
+  font-weight: 900;
+  margin-right: 45px;
+  cursor: auto;
+}
+
+.divider {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+
+
+/* ********* Home/Search/General *********** */
 
 .search {
   text-align: center;
@@ -58,6 +83,12 @@ input {
   vertical-align: middle;
   outline: none;
   border-radius: 5px;
+}
+
+#loading {
+  margin-top: 15px;
+  height: 100px;
+  margin-left: 50%;
 }
 
 .beers {
@@ -131,7 +162,6 @@ input {
   margin-left: 6%;
   margin-top: 1px;
   vertical-align: top;
-  border: 1px solid #FAB33A;
 }
 
 .bottom {
@@ -140,8 +170,12 @@ input {
   margin-bottom: 10px;
 }
 
-.bottom button {
-  background-color: #FAB33A;
+.wrapper div {
+  display: inline-block;
+}
+
+.tried-button {
+  background-color: #FA7D3A;
   height: 35px;
   width: 150px;
   margin-right: 10px;
@@ -152,9 +186,208 @@ input {
   cursor: pointer;
 }
 
-.wrapper div {
+
+/* ********* Tried Beers *********** */
+
+
+.header-tried {
+  width: 100%;
+  height: 55px;
+  background-color: #FA7D3A;
+  color: white;
+  padding-top: 12px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  padding-left: 20px;
+  padding-right: 45px;
+  font-size: 18px;
+}
+
+.header-tried span {
+  margin-left: 25px;
+}
+
+.header-tried div {
   display: inline-block;
 }
+
+.expand-tried {
+ float: right;
+ font-size: 25px;
+ color: white;
+ background-color: #FA7D3A;
+ border: none;
+ cursor: pointer;
+ height: 30px;
+ border-radius: 5px;
+ margin-right: 10px;
+ outline: none;
+ height: 35px;
+ margin-top: 5px;
+}
+
+.beersTitle-tried {
+  font-size: 35px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-weight: 500;
+  color: #FA7D3A;
+}
+
+.addMore-tried {
+  font-size: 20px;
+  color: #FA7D3A;
+  text-align: center;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.beers-tried {
+  margin: auto;
+  margin-bottom: 18px;
+  width: 75%;
+  border: 1px solid #FA7D3A;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+
+#title-tried {
+  border: 3px solid #FA7D3A;
+  color: #FA7D3A;
+  padding: 20px;
+  width: 41.6%;
+  margin: auto;
+  text-align: center;
+  font-size: 400%;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.tried-remove {
+  background-color: #FA7D3A;
+  height: 35px;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+
+
+/* ********* Wishlist Beers *********** */
+
+
+.header-wishList {
+  width: 100%;
+  height: 55px;
+  background-color: #FACC3A;
+  color: white;
+  padding-top: 12px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  padding-left: 20px;
+  padding-right: 45px;
+  font-size: 18px;
+}
+
+.header-wishList span {
+  margin-left: 25px;
+}
+
+.header-wishList div {
+  display: inline-block;
+}
+
+.expand-wishlist {
+ float: right;
+ font-size: 25px;
+ color: white;
+ background-color: #FACC3A;
+ border: none;
+ cursor: pointer;
+ height: 30px;
+ border-radius: 5px;
+ margin-right: 10px;
+ outline: none;
+ height: 35px;
+ margin-top: 5px;
+}
+
+.beersTitle-wishlist {
+  font-size: 35px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-weight: 500;
+  color: #FACC3A;
+}
+
+.beers-wishlist {
+  margin: auto;
+  margin-bottom: 18px;
+  width: 75%;
+  border: 1px solid #FACC3A;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+#title-wishlist {
+  border: 3px solid #FACC3A;
+  color: #FACC3A;
+  padding: 20px;
+  width: 41.6%;
+  margin: auto;
+  text-align: center;
+  font-size: 400%;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.addMore-wishlist {
+  font-size: 20px;
+  color: #FACC3A;
+  text-align: center;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.wishlist-button {
+  background-color: #FACC3A;
+  height: 35px;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+
+.wishlist-remove {
+  background-color: #FACC3A;
+  height: 35px;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ********* Form input *********** */
 
 .auth {
   border: 3px solid #FAB33A;
@@ -201,15 +434,10 @@ input {
   text-decoration: underline;
 }
 
-#loading {
-  margin-top: 15px;
-  height: 100px;
-  margin-left: 50%;
-}
-
 #x-out {
   height: 32px;
   position: relative;
   margin-right: 85%;
 }
+
 

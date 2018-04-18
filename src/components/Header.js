@@ -121,18 +121,26 @@ class Header extends React.Component {
 
   render() {
     return (
-        <div className="header">
+        <div>
           {this.props.user
             ?
-              <div style={{"display":"inline-block"}}>
-                <span>{this.props.user}</span> &nbsp;
-                {this.props.handleHome ? <span onClick={this.props.handleHome}>Home</span> : null}
-                <span onClick={this.logout}>Log out</span> &nbsp;
-                <span onClick={this.props.handleTried}>Beers I've Tried</span> &nbsp;
+              <div className={this.props.headerStyle}>
+                <span className="user">Welcome, {this.props.user}</span>
                 <span onClick={this.props.handleWishList}>Wishlist</span>
+                <span className="divider">|</span>
+                <span onClick={this.props.handleTried}>Beers I've Tried</span>
+                {this.props.handleHome
+                  ?
+                    <div>
+                      <span className="divider">|</span>
+                      <span onClick={this.props.handleHome}>Home</span>
+                    </div>
+                  : null
+                }
+                <span style={{"float": "right"}} onClick={this.logout}>Log out</span>
               </div>
             :
-              <div style={{"display":"inline-block"}}>
+              <div>
                 <span onClick={this.clickLogin}>Login</span> &nbsp;
                   {this.state.clickedLogin
                     ?

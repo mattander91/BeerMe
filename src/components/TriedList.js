@@ -3,7 +3,7 @@ import Tried from './Tried';
 
 const TriedList = (props) => (
   <div>
-    <h1 id="title">Tried Beers</h1>
+    <h1 id="title-tried">Your Beers</h1>
     {props.tried.map(beer => {
       return (
         <Tried

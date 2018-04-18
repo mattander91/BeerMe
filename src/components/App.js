@@ -162,9 +162,9 @@ class App extends React.Component {
             handleLogout={this.handleLogout}
             handleTried={this.handleTried}
             user={this.state.currentUser}
-            // handleHome={this.handleHome}
             setUserInfo={this.setUserInfo}
             handleWishList={this.handleWishList}
+            headerStyle={'header'}
           />
           <Search
             searchedBeers={this.searchedBeers}
@@ -184,6 +184,7 @@ class App extends React.Component {
             handleWishList={this.handleWishList}
             user={this.state.currentUser}
             handleHome={this.handleHome}
+            headerStyle={'header-tried'}
           />
           <TriedList
             user={this.state.currentUser}
@@ -203,7 +204,7 @@ class App extends React.Component {
             user={this.state.currentUser}
             handleHome={this.handleHome}
             handleWishList={this.handleWishList}
-            setUserInfo={this.setUserInfo}
+            headerStyle={'header-wishList'}
           />
           <WishListList
             user={this.state.currentUser}

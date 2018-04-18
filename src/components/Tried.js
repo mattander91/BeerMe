@@ -37,9 +37,9 @@ class Tried extends React.Component {
       <div>
         {!this.props.beer.noData
           ?
-            <div className="beers" style={{height: divHeight}}>
-              <div className="beersTitle">{this.props.beer.name}
-                <button className="expand" onClick={(event) => {
+            <div className="beers-tried" style={{height: divHeight}}>
+              <div className="beersTitle-tried">{this.props.beer.name}
+                <button className="expand-tried" onClick={(event) => {
                   this.expand()
                   event.stopPropagation()}}><i className="fa fa-plus-square-o"></i></button>
               </div>
@@ -58,12 +58,12 @@ class Tried extends React.Component {
                     <div className={"img"}>
                       <img alt="beer" className="image" src={this.props.beer.icon}/>
                     </div>
-                    <div className="bottom"><button onClick={this.props.removeBeer} data-id={this.props.beer.id} data-list={"deleteBeer"} style={{"backgroundColor": 'red'}}>Remove from my list</button>
+                    <div className="bottom"><button className="tried-remove" onClick={this.props.removeBeer} data-id={this.props.beer.id} data-list={"deleteBeer"}>Remove from my list</button>
                     </div>
                   </div>
                 : null}
             </div>
-          : <div className="addMore" onClick={this.props.handleHome}>Add more beers to your list!</div>
+          : <div className="addMore-tried" onClick={this.props.handleHome}>Add more beers to your list!</div>
         }
       </div>
     )

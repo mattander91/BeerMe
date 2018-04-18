@@ -3,7 +3,7 @@ import WishList from './WishList';
 
 const WishListList = (props) => (
   <div>
-  <h1 id="title">My Wishlist</h1>
+  <h1 id="title-wishlist">My Wishlist</h1>
     {props.wishList.map(beer => {
       return (
         <WishList

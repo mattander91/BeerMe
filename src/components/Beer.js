@@ -53,7 +53,12 @@ class Beer extends React.Component {
                     <div className={"img"}>
                       <img alt="beer" className="image" src={this.props.beer.icon}/>
                     </div>
-                    <div className="bottom"><button onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"savebeer"}>Add to my list</button><button onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"wishList"}>Add to wishlist</button>
+                    <div className="bottom">
+                      <button className="tried-button" onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"savebeer"}>Add to my list
+                      </button>
+                      <button className="wishlist-button" onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={"wishList"}>
+                        Add to wishlist
+                      </button>
                     </div>
                   </div>
                 : null}
