@@ -111,12 +111,7 @@ class Header extends React.Component {
       clickedLogin: false,
       clickedSignup: false
     });
-    this.props.handleLogout();
-  }
-
-  //Show/hide 'spinner' loading gif
-  handleSpinner() {
-    this.setState({showSpinner: !this.state.showSpinner});
+    this.props.handleClicks('Logout');
   }
 
   render() {
@@ -126,14 +121,22 @@ class Header extends React.Component {
             ?
               <div className={this.props.headerStyle}>
                 <span className="user">Welcome, {this.props.user}</span>
-                <span onClick={this.props.handleWishList}>Wishlist</span>
+                <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
                 <span className="divider">|</span>
-                <span onClick={this.props.handleTried}>Beers I've Tried</span>
+                <span onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
+
+                {!this.props.about
+
+                  ? <div><span className="divider">|</span>
+                    <span onClick={(e) => {this.props.handleClicks('About')}}>About</span></div>
+                  : null
+
+                }
                 {!this.props.hideHome
                   ?
                     <div>
                       <span className="divider">|</span>
-                      <span onClick={this.props.handleHome}>Home</span>
+                      <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
                     </div>
                   : null
                 }
@@ -141,6 +144,11 @@ class Header extends React.Component {
               </div>
             :
               <div className={this.props.headerStyle}>
+                {this.props.about
+                  ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
+                  : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
+                }
+                <span className="divider">|</span>
                 <span onClick={this.clickLogin}>Login</span>
                 <span className="divider">|</span>
                   {this.state.clickedLogin

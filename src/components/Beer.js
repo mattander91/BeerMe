@@ -48,10 +48,13 @@ class Beer extends React.Component {
                   <div className="wrapper">
                     <div className="longDescription">
                       <p>{this.props.beer.des}</p>
-                      <p style={{"font-weight": "900"}}>ABV: {this.props.beer.abv}</p>
+                      {this.props.beer.abv
+                        ? <p style={{"font-weight": "900"}}>ABV: {this.props.beer.abv}%</p>
+                        : null
+                      }
                     </div>
-                    <div className={"img"}>
-                      <img alt="beer" className="image" src={this.props.beer.icon}/>
+                    <div className="img">
+                      <img alt="beer" width="150" height="150" className="image" src={this.props.beer.icon}/>
                     </div>
                     {this.props.user
                       ?

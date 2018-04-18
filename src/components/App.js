@@ -5,6 +5,7 @@ import Search from './Search.js';
 import Header from './Header.js';
 import WishListList from './WishListList.js';
 import TriedList from './TriedList.js';
+import About from './About.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,16 +17,11 @@ class App extends React.Component {
       wishList: [],
       currentUser: ''
     }
-    this.handleHome = this.handleHome.bind(this);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handleSignupClick = this.handleSignupClick.bind(this);
     this.saveBeer = this.saveBeer.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
     this.searchedBeers = this.searchedBeers.bind(this);
     this.setUserInfo = this.setUserInfo.bind(this);
-    this.handleTried = this.handleTried.bind(this);
     this.removeBeer = this.removeBeer.bind(this);
-    this.handleWishList = this.handleWishList.bind(this);
+    this.handleClicks = this.handleClicks.bind(this);
   }
 
   componentDidMount() {
@@ -108,46 +104,21 @@ class App extends React.Component {
 
 ///////////////////////////////////////////////////
 
-  handleHome() {
-    this.setState({
-      currentState: 'Home',
-      beers: []
-    });
-  }
-
-  handleLoginClick() {
-    this.setState({
-      currentState: 'Login'
-    });
-  }
-
-  handleSignupClick() {
-    this.setState({
-      currentState: 'Signup'
-    });
-  }
-
-  handleLogout() {
-    sessionStorage.removeItem('user');
-    this.setState({
-      currentUser: '',
-      beers: [],
-      currentState: 'Home'
-    });
-  }
-
-  handleTried() {
-    this.setUserInfo();
-    this.setState({
-      currentState: 'Tried'
-    });
-  }
-
-  handleWishList() {
-    this.setUserInfo();
-    this.setState({
-      currentState: 'wishList'
-    });
+  handleClicks(click) {
+    if (click === 'Home') {
+      this.setState({ currentState: 'Home', beers: [] });
+    } else if (click === 'Logout') {
+        sessionStorage.removeItem('user');
+        this.setState({ currentUser: '', beers: [], currentState: 'Home' });
+    } else if (click === 'Wishlist') {
+        this.setUserInfo();
+        this.setState({currentState: 'wishList'});
+    } else if (click === 'Tried') {
+        this.setUserInfo();
+        this.setState({currentState: 'Tried'});
+    } else {
+      this.setState({ currentState: click });
+    }
   }
 
 ///////////////////////////////////////////////////
@@ -157,16 +128,11 @@ class App extends React.Component {
       return (
         <div className="master">
           <Header
-            handleLoginClick={this.handleLoginClick}
-            handleSignupClick={this.handleSignupClick}
-            handleLogout={this.handleLogout}
-            handleTried={this.handleTried}
             user={this.state.currentUser}
             setUserInfo={this.setUserInfo}
-            handleWishList={this.handleWishList}
             headerStyle={'header'}
-            handleHome={this.handleHome}
             hideHome={true}
+            handleClicks={this.handleClicks}
           />
           <Search
             searchedBeers={this.searchedBeers}
@@ -182,19 +148,16 @@ class App extends React.Component {
       return (
         <div>
           <Header
-            handleLogout={this.handleLogout}
-            handleTried={this.handleTried}
-            handleWishList={this.handleWishList}
             user={this.state.currentUser}
-            handleHome={this.handleHome}
             headerStyle={'header-tried'}
+            handleClicks={this.handleClicks}
           />
           <TriedList
             user={this.state.currentUser}
             tried={this.state.tried}
             removeBeer={this.removeBeer}
-            handleHome={this.handleHome}
             setUserInfo={this.setUserInfo}
+            handleClicks={this.handleClicks}
           />
         </div>
       )
@@ -202,19 +165,28 @@ class App extends React.Component {
       return (
         <div>
           <Header
-            handleLogout={this.handleLogout}
-            handleTried={this.handleTried}
             user={this.state.currentUser}
-            handleHome={this.handleHome}
-            handleWishList={this.handleWishList}
             headerStyle={'header-wishList'}
+            handleClicks={this.handleClicks}
           />
           <WishListList
             user={this.state.currentUser}
             removeBeer={this.removeBeer}
             wishList={this.state.wishList}
-            handleHome={this.handleHome}
+            handleClicks={this.handleClicks}
           />
+        </div>
+      )
+    } else if (this.state.currentState === 'About') {
+      return (
+        <div>
+          <Header
+            user={this.state.currentUser}
+            headerStyle={'header'}
+            about={true}
+            handleClicks={this.handleClicks}
+          />
+          <About/>
         </div>
       )
     }

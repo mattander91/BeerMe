@@ -47,7 +47,8 @@ class Search extends React.Component {
             this.props.searchedBeers(beerList);
           }
           this.handleSpinner();
-          this.setState({term: ''})
+          this.setState({term: ''});
+          document.getElementById("searchInput").reset();
         },
         error: (err) => {
           console.log('ajax post failed');
@@ -66,7 +67,6 @@ class Search extends React.Component {
         <div className="search">
           <form id="searchInput" onSubmit={(e) => {
             this.search(e);
-            document.getElementById("searchInput").reset();
           }}>
             <input type="text" placeholder={'Search beers...'}
               onChange={ event =>

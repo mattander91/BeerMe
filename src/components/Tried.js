@@ -11,7 +11,6 @@ class Tried extends React.Component {
     }
     this.expand = this.expand.bind(this);
     this.mouseOver = this.mouseOver.bind(this);
-    this.resetForm = this.resetForm.bind(this);
   }
 
   expand() {
@@ -24,10 +23,6 @@ class Tried extends React.Component {
 
   mouseOver() {
     this.setState({hover: !this.state.hover});
-  }
-
-  resetForm() {
-    document.getElementById("notesInput").reset();
   }
 
   render() {
@@ -55,15 +50,15 @@ class Tried extends React.Component {
                       <p>{this.props.beer.des}</p>
                       <p style={{"font-weight": "900"}}>ABV: {this.props.beer.abv}</p>
                     </div>
-                    <div className={"img"}>
-                      <img alt="beer" className="image" src={this.props.beer.icon}/>
+                    <div className="img">
+                      <img alt="beer" width="150" height="150" className="image" src={this.props.beer.icon}/>
                     </div>
                     <div className="bottom"><button className="tried-remove" onClick={this.props.removeBeer} data-id={this.props.beer.id} data-list={"deleteBeer"}>Remove from my list</button>
                     </div>
                   </div>
                 : null}
             </div>
-          : <div className="addMore-tried" onClick={this.props.handleHome}>Add more beers to your list!</div>
+          : <div className="addMore-tried" onClick={(e) => {this.props.handleClicks('Home')}}>Add more beers to your list!</div>
         }
       </div>
     )

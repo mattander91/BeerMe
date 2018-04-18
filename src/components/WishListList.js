@@ -10,7 +10,7 @@ const WishListList = (props) => (
           beer={beer}
           user={props.user}
           removeBeer={props.removeBeer}
-          handleHome={props.handleHome}
+          handleClicks={props.handleClicks}
           key={beer.id}
         />
       )

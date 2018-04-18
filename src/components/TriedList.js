@@ -10,9 +10,9 @@ const TriedList = (props) => (
           beer={beer}
           user={props.user}
           removeBeer={props.removeBeer}
-          handleHome={props.handleHome}
           key={beer.id}
           setUserInfo={props.setUserInfo}
+          handleClicks={props.handleClicks}
         />
       )
     })}
