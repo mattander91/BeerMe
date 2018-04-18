@@ -162,7 +162,7 @@ class App extends React.Component {
             handleLogout={this.handleLogout}
             handleTried={this.handleTried}
             user={this.state.currentUser}
-            handleHome={this.handleHome}
+            // handleHome={this.handleHome}
             setUserInfo={this.setUserInfo}
             handleWishList={this.handleWishList}
           />

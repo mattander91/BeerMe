@@ -10,7 +10,8 @@ class Header extends React.Component {
       loginUsername: '',
       loginPassword: '',
       newUserName: '',
-      newPassword: ''
+      newPassword: '',
+      showSpinner: false
     }
     this.clickLogin = this.clickLogin.bind(this);
     this.clickSignup = this.clickSignup.bind(this);
@@ -31,7 +32,7 @@ class Header extends React.Component {
   }
 
   handleLoginPassword(e) {
-    var password = e.target.value;
+    let password = e.target.value;
     this.setState({
       loginPassword: password
     });
@@ -60,14 +61,14 @@ class Header extends React.Component {
   }
 
   handleNewUsername(e) {
-    var newUserName = e.target.value;
+    let newUserName = e.target.value;
     this.setState({
       newUserName: newUserName
     });
   }
 
   handleNewPassword(e) {
-    var newPassword = e.target.value;
+    let newPassword = e.target.value;
     this.setState({
       newPassword: newPassword
     });
@@ -75,7 +76,7 @@ class Header extends React.Component {
 
   signupNewUser(e) {
     e.preventDefault();
-    var newUser = {
+    let newUser = {
       username: this.state.newUserName,
       password: this.state.newPassword
     }
@@ -96,10 +97,12 @@ class Header extends React.Component {
   }
 
   clickLogin() {
+    this.setState({clickedSignup: false});
     this.setState({clickedLogin: !this.state.clickedLogin});
   }
 
   clickSignup() {
+    this.setState({clickedLogin: false});
     this.setState({clickedSignup: !this.state.clickedSignup});
   }
 
@@ -111,13 +114,19 @@ class Header extends React.Component {
     this.props.handleLogout();
   }
 
+  //Show/hide 'spinner' loading gif
+  handleSpinner() {
+    this.setState({showSpinner: !this.state.showSpinner});
+  }
+
   render() {
     return (
         <div className="header">
-          <span onClick={this.props.handleHome}>Home</span> &nbsp;
           {this.props.user
             ?
               <div style={{"display":"inline-block"}}>
+                <span>{this.props.user}</span> &nbsp;
+                {this.props.handleHome ? <span onClick={this.props.handleHome}>Home</span> : null}
                 <span onClick={this.logout}>Log out</span> &nbsp;
                 <span onClick={this.props.handleTried}>Beers I've Tried</span> &nbsp;
                 <span onClick={this.props.handleWishList}>Wishlist</span>
@@ -128,16 +137,16 @@ class Header extends React.Component {
                   {this.state.clickedLogin
                     ?
                       <div className="auth">
+                      <img onClick={this.clickLogin} id="x-out" src="img/X-out.jpg"/>
                         <p>Login</p>
                         <form onSubmit={this.loginUser}>
-                          <input placeholder={'Enter Username'} onChange={(event) => {
+                          <input placeholder={'Enter Username...'} onChange={(event) => {
                             this.handleLoginUsername(event)}
                           }/>
-                          <input placeholder={'Enter Password'} onChange={(event) => {
+                          <input placeholder={'Enter Password...'} onChange={(event) => {
                             this.handleLoginPassword(event)}
                           }/>
                         <button>Login</button>
-                        <button onClick={this.clickLogin}>Close</button>
                        </form>
                       </div>
                     : null
@@ -146,16 +155,16 @@ class Header extends React.Component {
                   {this.state.clickedSignup
                     ?
                       <div className="auth">
+                        <img onClick={this.clickSignup} id="x-out" src="img/X-out.jpg"/>
                         <p>Sign Up</p>
                         <form onSubmit={this.signupNewUser}>
-                          <input placeholder={'Enter Username'} onChange={(event) => {
+                          <input placeholder={'Enter Username...'} onChange={(event) => {
                             this.handleNewUsername(event)}
                           }/>
-                          <input placeholder={'Enter Password'} onChange={(event) => {
+                          <input placeholder={'Enter Password...'} onChange={(event) => {
                             this.handleNewPassword(event)}
                           }/>
                         <button>Sign Up</button>
-                        <button onClick={this.clickSignup}>Close</button>
                        </form>
                       </div>
                     : null

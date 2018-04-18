@@ -70,7 +70,7 @@ class Search extends React.Component {
           </form>
         </div>
         {this.state.showSpinner
-          ? <img id="loading" src="img/loading.gif"/>
+          ? <img id="loading" src="img/Loading_icon.gif"/>
           : null
         }
       </div>
