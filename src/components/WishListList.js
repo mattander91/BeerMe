@@ -9,7 +9,7 @@ const WishListList = (props) => (
         <WishList
           beer={beer}
           user={props.user}
-          removeBeer={props.removeBeer}
+          addOrRemoveBeer={props.addOrRemoveBeer}
           handleClicks={props.handleClicks}
           key={beer.id}
         />

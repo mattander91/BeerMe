@@ -54,7 +54,11 @@ class Tried extends React.Component {
                     <div className='img'>
                       <img alt='' width='150' height='150' className='image' src={this.props.beer.icon}/>
                     </div>
-                    <div className='bottom'><button className='tried-remove' onClick={this.props.removeBeer} data-id={this.props.beer.id} data-list={'deleteBeer'}>Remove from my list</button>
+                    <div className='bottom'>
+                      <button className='tried-remove' onClick={(e) => {
+                        this.props.addOrRemoveBeer('DELETE', this.props.beer.id, 'deleteBeer')}}>
+                        Remove from my list
+                      </button>
                     </div>
                   </div>
                 : null

@@ -56,9 +56,12 @@ class Beer extends React.Component {
                     </div>
                     {this.props.user
                       ? <div className='bottom'>
-                          <button className='tried-button' onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={'savebeer'}>Add to my list
+                          <button className='tried-button' onClick={(e) => {
+                            this.props.addOrRemoveBeer('POST', this.props.beer.id, 'savebeer')}}>
+                            Add to my list
                           </button>
-                          <button className='wishlist-button' onClick={this.props.saveBeer} data-id={this.props.beer.id} data-list={'wishList'}>
+                          <button className='wishlist-button' onClick={(e) => {
+                            this.props.addOrRemoveBeer('POST', this.props.beer.id, 'wishList')}}>
                             Add to wishlist
                           </button>
                         </div>

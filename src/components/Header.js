@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import Helpers from '../Helpers.js';
 
 class Header extends React.Component {
   constructor(props) {
@@ -7,72 +7,49 @@ class Header extends React.Component {
     this.state = {
       clickedSignup: false,
       clickedLogin: false,
-      loginUsername: '',
-      loginPassword: '',
-      newUserName: '',
-      newPassword: ''
+      username: '',
+      password: ''
     }
-
-    this.loginUser = this.loginUser.bind(this);
-    this.signupNewUser = this.signupNewUser.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleClicks = this.handleClicks.bind(this);
+    this.checkInput = this.checkInput.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
-  loginUser(e) {
+  submitForm(e, caller, endpoint) {
     e.preventDefault();
-    let user = {
-      username: this.state.loginUsername,
-      password: this.state.loginPassword
+    let data = {
+      username: this.state.username,
+      password: this.state.password
     }
-    $.ajax({
-      type: 'POST',
-      url: 'http://127.0.0.1:3001/login',
-      data: user,
-      success: () => {
-        sessionStorage.setItem('user', this.state.loginUsername);
+    let url = 'http://127.0.0.1:3001/' + endpoint;
+    if (this.checkInput(data.username) && this.checkInput(data.password)) {
+      Helpers.ajaxCalls('POST', url, data, caller, (data) => {
+        sessionStorage.setItem('user', this.state.username);
         this.props.handleClicks('Home');
         this.props.setUserInfo();
-      },
-      error: (err) => {
-        alert('Username or password not valid');
-        console.log('loginUser failed: ', err);
-      }
-    });
+      });
+    } else {
+      alert('Username and password must not contain special characters');
+    }
   }
 
-  signupNewUser(e) {
-    e.preventDefault();
-    let newUser = {
-      username: this.state.newUserName,
-      password: this.state.newPassword
-    }
-    $.ajax({
-      type: 'POST',
-      url: 'http://127.0.0.1:3001/signUp',
-      data: newUser,
-      success: (data) => {
-        sessionStorage.setItem('user', this.state.newUserName);
-        this.props.handleHome();
-        this.props.setUserInfo();
-      },
-      error: (err) => {
-        alert('Username already exists. Please try another');
-        console.log('Signup failed: ', err);
+  checkInput(input) {
+    const forbidden = ['>', '<', '}', '{', '.', ',', '|'];
+    for (let i = 0; i < forbidden.length; i++) {
+      if (input.includes(forbidden[i])) {
+        return false;
       }
-    });
+    }
+    return true;
   }
 
   handleInput(e, input) {
     let inputValue = e.target.value;
-    if (input === 'loginUsername') {
-      this.setState({loginUsername: inputValue});
-    } else if (input === 'loginPassword') {
-      this.setState({'loginPassword': inputValue});
-    } else if (input === 'newUserName') {
-      this.setState({'newUserName': inputValue});
-    } else if (input === 'newPassword') {
-      this.setState({'newPassword': inputValue});
+    if (input === 'password') {
+      this.setState({password: inputValue});
+    } else if (input === 'username') {
+      this.setState({username: inputValue});
     }
   }
 
@@ -93,8 +70,7 @@ class Header extends React.Component {
     return (
         <div>
           {this.props.user
-            ?
-              <div className={this.props.headerStyle}>
+            ? <div className={this.props.headerStyle}>
                 <span className='user'>Welcome, {this.props.user}</span>
                 <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
                 <span className='divider'>|</span>
@@ -113,8 +89,7 @@ class Header extends React.Component {
                 }
                 <span style={{'float': 'right'}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
               </div>
-            :
-              <div className={this.props.headerStyle}>
+            : <div className={this.props.headerStyle}>
                 {this.props.about
                   ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
                   : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
@@ -126,12 +101,12 @@ class Header extends React.Component {
                   ? <div className='auth'>
                       <img onClick={(e) => {this.handleClicks('Login')}} id='x-out' alt='' src='img/X-out.jpg'/>
                       <p>Login</p>
-                      <form onSubmit={this.loginUser}>
+                      <form onSubmit={(e) => {this.submitForm(e, 'login form', 'login')}}>
                         <input placeholder={'Enter Username...'} onChange={(e) => {
-                          this.handleInput(e, 'loginUsername')}
+                          this.handleInput(e, 'username')}
                         }/>
                         <input placeholder={'Enter Password...'} onChange={(e) => {
-                          this.handleInput(e, 'loginPassword')}
+                          this.handleInput(e, 'password')}
                         }/>
                       <button>Login</button>
                      </form>
@@ -143,12 +118,12 @@ class Header extends React.Component {
                     ? <div className='auth'>
                         <img onClick={(e) => {this.handleClicks('Signup')}} id='x-out' alt='' src='img/X-out.jpg'/>
                         <p>Sign Up</p>
-                        <form onSubmit={this.signupNewUser}>
+                        <form onSubmit={(e) => {this.submitForm(e, 'signup user', 'signup')}}>
                           <input placeholder={'Enter Username...'} onChange={(e) => {
-                            this.handleInput(e, 'newUserName')}
+                            this.handleInput(e, 'username')}
                           }/>
                           <input placeholder={'Enter Password...'} onChange={(e) => {
-                            this.handleInput(e, 'newPassword')}
+                            this.handleInput(e, 'password')}
                           }/>
                         <button>Sign Up</button>
                        </form>

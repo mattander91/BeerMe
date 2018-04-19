@@ -1,8 +1,10 @@
 /*
-  Smaller beer images?
-  Make beer images in line with beer name or brewery?
-  Play with colors for input and search button
-  Make sure wishlist and tried beer list colors match
+  spinner for removal of items
+  README
+  Deployment - env't variables, db URL, etc...
+    CLI: https://devcenter.heroku.com/articles/creating-apps
+    remote: https://devcenter.heroku.com/articles/git#deploying-code
+    config variables: https://devcenter.heroku.com/articles/config-vars
 */
 
 
@@ -15,7 +17,7 @@ import Favicon from 'react-favicon';
 ReactDOM.render(
   <div>
     <App />
-    <Favicon url="https://cdn.iconscout.com/public/images/icon/free/png-512/beer-mug-glass-drink-cocktail-emoj-symbol-babr-369f133aa5b11abf-512x512.png" />
+    <Favicon url='img/beer-favicon.png'/>
   </div>
   , document.getElementById('app')
 );

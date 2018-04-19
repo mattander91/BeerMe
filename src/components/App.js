@@ -1,11 +1,11 @@
 import React from 'react';
-import $ from 'jquery';
 import BeerList from './BeerList.js';
 import Search from './Search.js';
 import Header from './Header.js';
 import WishListList from './WishListList.js';
 import TriedList from './TriedList.js';
 import About from './About.js';
+import Helpers from '../Helpers.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,30 +17,15 @@ class App extends React.Component {
       wishList: [],
       currentUser: ''
     }
-    this.saveBeer = this.saveBeer.bind(this);
+
     this.searchedBeers = this.searchedBeers.bind(this);
     this.setUserInfo = this.setUserInfo.bind(this);
-    this.removeBeer = this.removeBeer.bind(this);
     this.handleClicks = this.handleClicks.bind(this);
-    this.ajaxCalls = this.ajaxCalls.bind(this);
+    this.addOrRemoveBeer = this.addOrRemoveBeer.bind(this);
   }
 
   componentDidMount() {
     this.setUserInfo();
-  }
-
-  ajaxCalls(type, url, data, caller, callback) {
-    $.ajax({
-      type: type,
-      url: url,
-      data: data,
-      success: (data) => {
-        callback(data);
-      },
-      error: (error) => {
-        console.log('error on ajax call from ' + caller + ': ' , error);
-      }
-    });
   }
 
   setUserInfo() {
@@ -51,36 +36,18 @@ class App extends React.Component {
     if (currentUser) {
       let url = 'http://127.0.0.1:3001/getUserInfo';
       let data = {username: currentUser};
-      this.ajaxCalls('GET', url, data, 'setUserInfo', (info) => {
+      Helpers.ajaxCalls('GET', url, data, 'setUserInfo', (info) => {
         this.setState({tried: info.beers, wishList: info.wishList});
       });
     }
   }
 
-  saveBeer(beer) {
-    let list = beer.currentTarget.dataset.list;
-    if (this.state.currentUser) {
-      let data = {username: this.state.currentUser, beerId: beer.currentTarget.dataset.id};
-      let url = 'http://127.0.0.1:3001/' + list;
-      this.ajaxCalls('POST', url, data, 'saveBeer', (info) => {
-        this.setUserInfo();
-      })
-    } else {
-      console.log('no user logged in');
-    }
-  }
-
-  removeBeer(beer) {
-    let list = beer.currentTarget.dataset.list;
-    if (this.state.currentUser) {
-      let data = {username: this.state.currentUser, id: beer.currentTarget.dataset.id}
-      let url = 'http://127.0.0.1:3001/' + list;
-      this.ajaxCalls('DELETE', url, data, 'removeBeer', (info) => {
-        this.setUserInfo();
-      });
-    } else {
-      console.log('no user logged in');
-    }
+  addOrRemoveBeer(request, id, endpoint) {
+    let data = {username: this.state.currentUser, beerId: id};
+    let url = 'http://127.0.0.1:3001/' + endpoint;
+    Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
+      this.setUserInfo();
+    });
   }
 
   searchedBeers(beerInfo) {
@@ -122,11 +89,10 @@ class App extends React.Component {
           />
           <Search
             searchedBeers={this.searchedBeers}
-            ajaxCalls={this.ajaxCalls}
           />
           <BeerList
             beers={this.state.beers}
-            saveBeer={this.saveBeer}
+            addOrRemoveBeer={this.addOrRemoveBeer}
             user={this.state.currentUser}
           />
         </div>
@@ -142,9 +108,9 @@ class App extends React.Component {
           <TriedList
             user={this.state.currentUser}
             tried={this.state.tried}
-            removeBeer={this.removeBeer}
             setUserInfo={this.setUserInfo}
             handleClicks={this.handleClicks}
+            addOrRemoveBeer={this.addOrRemoveBeer}
           />
         </div>
       )
@@ -158,7 +124,7 @@ class App extends React.Component {
           />
           <WishListList
             user={this.state.currentUser}
-            removeBeer={this.removeBeer}
+            addOrRemoveBeer={this.addOrRemoveBeer}
             wishList={this.state.wishList}
             handleClicks={this.handleClicks}
           />

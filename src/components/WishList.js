@@ -49,18 +49,22 @@ class WishList extends React.Component {
                 ? <div className='wrapper'>
                     <div className='longDescription'>
                       <p>{this.props.beer.des}</p>
-                      <p style={{'font-weight': '900'}}>ABV: {this.props.beer.abv}</p>
+                      <p style={{'fontWeight': '900'}}>ABV: {this.props.beer.abv}</p>
                     </div>
                     <div className='img'>
                       <img alt='' width='150' height='150' className='image' src={this.props.beer.icon}/>
                     </div>
-                    <div className='bottom'><button className='wishlist-remove' onClick={this.props.removeBeer} data-id={this.props.beer.id} data-list={'deleteWishlistBeer'}>Remove from my list</button>
+                    <div className='bottom'>
+                      <button className='wishlist-remove' onClick={(e) => {
+                        this.props.addOrRemoveBeer('DELETE', this.props.beer.id, 'deleteWishlistBeer')}}>
+                        Remove from my list
+                      </button>
                     </div>
                   </div>
                 : null
               }
             </div>
-          : <div className='addMore-wishlist' onClick={(e) => {this.props.handleClicks('Home')}}>Add more beers to your list!</div>
+          : <div className='addMore-wishlist' onClick={(e) => {this.props.handleClicks('Home')}}>Add more beers to your wishlist!</div>
         }
       </div>
     )

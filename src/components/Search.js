@@ -1,4 +1,5 @@
 import React from 'react';
+import Helpers from '../Helpers.js';
 
 class Search extends React.Component {
   constructor(props) {
@@ -24,10 +25,10 @@ class Search extends React.Component {
     e.preventDefault();
     if (this.state.term.length > 0) {
       this.handleSpinner();
-      let data = { searched: this.state.term };
+      let data = { searched: Helpers.preventInjection(this.state.term) };
       let url = 'http://127.0.0.1:3001/beers';
       let beerList = [];
-      this.props.ajaxCalls('GET', url, data, 'search', (data) => {
+      Helpers.ajaxCalls('GET', url, data, 'search', (data) => {
         let parsed = JSON.parse(data);
         if (parsed[0].noData) {
           this.props.searchedBeers(parsed);

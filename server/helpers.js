@@ -12,7 +12,7 @@ let getBeerData = (search, callback) => {
         let brewIcon = '';
         data[i].labels ? icon = data[i].labels.medium : icon = 'img/beer-image.jpg';
         data[i].breweries[0].images ? brewIcon = data[i].breweries[0].images.medium : brewIcon = null;
-        let relevance = refined(search, data[i].name, data[i].breweries[0].name);
+        let relevance = addRelevance(search, data[i].name, data[i].breweries[0].name);
         if (relevance > 0) {
           beerData.push({
             name: data[i].name,
@@ -35,7 +35,7 @@ let getBeerData = (search, callback) => {
   });
 }
 
-let refined = function(search, beerName, brewer) {
+let addRelevance = (search, beerName, brewer) => {
   let relevance = 0;
   let exp = /[a-zA-Z0-9\s]/g;
   let formattedSearch = search.match(exp).join('').toLowerCase().split(' ');
@@ -50,7 +50,6 @@ let refined = function(search, beerName, brewer) {
   return relevance;
 };
 
-
 let getBeerId = (ids, params, callback) => {
   let beerData = [];
   if (ids.length > 0) {
@@ -59,7 +58,7 @@ let getBeerId = (ids, params, callback) => {
         for (let i = 0; i < data.length; i++) {
           let icon = '';
           let brewIcon = '';
-          data[i].labels ? icon = data[i].labels.medium : icon = 'http://www.castlemalting.com/Publications/Recipes/Images/BlondBeer1Character256x256.png';
+          data[i].labels ? icon = data[i].labels.medium : icon = 'img/beer-image.jpg';
           data[i].breweries[0].images ? brewIcon = data[i].breweries[0].images.medium : brewIcon = null;
           beerData.push({
             name: data[i].name,
@@ -81,7 +80,6 @@ let getBeerId = (ids, params, callback) => {
     callback([{noData: true}]);
   }
 };
-
 
 module.exports.getBeerData = getBeerData;
 module.exports.getBeerId = getBeerId;

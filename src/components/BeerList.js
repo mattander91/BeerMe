@@ -7,7 +7,7 @@ const BeerList = (props) => (
       return (
         <Beer
           beer={beer}
-          saveBeer={props.saveBeer}
+          addOrRemoveBeer={props.addOrRemoveBeer}
           key={beer.id}
           user={props.user}
         />
@@ -15,6 +15,5 @@ const BeerList = (props) => (
     })}
   </div>
 );
-
 
 export default BeerList;

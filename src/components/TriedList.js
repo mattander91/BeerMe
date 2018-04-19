@@ -9,7 +9,7 @@ const TriedList = (props) => (
         <Tried
           beer={beer}
           user={props.user}
-          removeBeer={props.removeBeer}
+          addOrRemoveBeer={props.addOrRemoveBeer}
           key={beer.id}
           setUserInfo={props.setUserInfo}
           handleClicks={props.handleClicks}
