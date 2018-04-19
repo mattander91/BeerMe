@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "server-dev": "nodemon -L server/index.js",
-    "start": "node server/index.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
