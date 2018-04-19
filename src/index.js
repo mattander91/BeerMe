@@ -5,6 +5,7 @@
     CLI: https://devcenter.heroku.com/articles/creating-apps
     remote: https://devcenter.heroku.com/articles/git#deploying-code
     config variables: https://devcenter.heroku.com/articles/config-vars
+    mongo: https://devcenter.heroku.com/articles/mongolab#getting-your-connection-uri
 */
 
 

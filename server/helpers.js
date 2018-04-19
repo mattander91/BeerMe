@@ -29,6 +29,7 @@ let getBeerData = (search, callback) => {
       callback(beerData);
     } else if (err) {
       console.log('error getting data: ', err);
+      callback([{noData: true}]);
     } else {
       callback([{noData: true}]);
     }

@@ -15,13 +15,14 @@ class App extends React.Component {
       beers: [],
       tried: [],
       wishList: [],
-      currentUser: ''
+      currentUser: '',
+      showSpinner: false
     }
-
     this.searchedBeers = this.searchedBeers.bind(this);
     this.setUserInfo = this.setUserInfo.bind(this);
     this.handleClicks = this.handleClicks.bind(this);
     this.addOrRemoveBeer = this.addOrRemoveBeer.bind(this);
+    this.handleSpinner = this.handleSpinner.bind(this);
   }
 
   componentDidMount() {
@@ -42,11 +43,18 @@ class App extends React.Component {
     }
   }
 
+
+  handleSpinner() {
+    this.setState({showSpinner: !this.state.showSpinner});
+  }
+
   addOrRemoveBeer(request, id, endpoint) {
+    this.handleSpinner();
     let data = {username: this.state.currentUser, beerId: id};
     let url = 'http://127.0.0.1:3001/' + endpoint;
     Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
       this.setUserInfo();
+      this.handleSpinner();
     });
   }
 

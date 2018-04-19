@@ -17,7 +17,7 @@ class Search extends React.Component {
     this.setState({ term: searchedTerm });
   }
 
-  handleSpinner(word) {
+  handleSpinner() {
     this.setState({showSpinner: !this.state.showSpinner});
   }
 

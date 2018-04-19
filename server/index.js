@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const UserModel = require('../database/index.js').Users;
 const helpers = require('./helpers.js');
 const cors = require('cors');
-
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -21,7 +20,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 let port = process.env.port || 3001;
 
@@ -141,9 +139,6 @@ app.delete('/deleteWishlistBeer', (req, res) => {
   });
 });
 
-
-
-///////////////////////////////////////////////////////////////////////////
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
