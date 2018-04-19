@@ -2,6 +2,8 @@ const request = require('request');
 const BreweryDb = require('brewerydb-node');
 const brewdb = new BreweryDb('de2f8300472e9694eaeb25f095e18d72');
 
+
+//Calls brewery API search endpoint
 let getBeerData = (search, callback) => {
   brewdb.search.beers({q: search, withBreweries: 'Y'}, (err, data) => {
     if (data) {

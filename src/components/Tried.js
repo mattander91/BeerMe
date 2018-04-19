@@ -13,6 +13,10 @@ class Tried extends React.Component {
     this.mouseOver = this.mouseOver.bind(this);
   }
 
+
+  //linked to expand button on top right of each beer div.
+  //expands divs to show more info including full description, beer image, brewer logo/image,
+  //  ABV, and buttons for adding to lists when logged in.
   expand() {
     this.setState({
       showItems: !this.state.showItems,
@@ -21,6 +25,7 @@ class Tried extends React.Component {
     });
   }
 
+  //handles hovering over brewer name to show brewer icon/logo
   mouseOver() {
     this.setState({hover: !this.state.hover});
   }
@@ -31,8 +36,8 @@ class Tried extends React.Component {
     return (
       <div>
         {!this.props.beer.noData
-          ?
-            <div className='beers-tried' style={{height: divHeight}}>
+          /* Show tried beers if any */
+          ? <div className='beers-tried' style={{height: divHeight}}>
               <div className='beersTitle-tried'>{this.props.beer.name}
                 <button className='expand-tried' onClick={(event) => {
                   this.expand()
@@ -64,6 +69,7 @@ class Tried extends React.Component {
                 : null
               }
             </div>
+            /* Suggest adding more tried beers if none */
           : <div className='addMore-tried' onClick={(e) => {this.props.handleClicks('Home')}}>
               Add more beers to your list!
             </div>

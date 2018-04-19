@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+//Beers returned from Search
 class Beer extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,9 @@ class Beer extends React.Component {
     this.mouseOver = this.mouseOver.bind(this);
   }
 
+  //linked to expand button on top right of each beer div.
+  //expands divs to show more info including full description, beer image, brewer logo/image,
+  //  ABV, and buttons for adding to lists when logged in.
   expand() {
     this.setState({
       showItems: !this.state.showItems,
@@ -21,6 +26,7 @@ class Beer extends React.Component {
     });
   }
 
+  //handles hovering over brewer name to show brewer icon/logo
   mouseOver() {
     this.setState({hover: !this.state.hover});
   }
@@ -31,6 +37,7 @@ class Beer extends React.Component {
     return (
       <div>
         {!this.props.beer.noData
+            /* Show results if any */
           ? <div className='beers' style={{height: divHeight}}>
               <div className='beersTitle'>{this.props.beer.name}
                 <button className='expand' onClick={(event) => {
@@ -47,6 +54,7 @@ class Beer extends React.Component {
                     <div className='longDescription'>
                       <p>{this.props.beer.des}</p>
                       {this.props.beer.abv
+                        /* Show ABV if provided */
                         ? <p style={{'fontWeight': '900'}}>ABV: {this.props.beer.abv}%</p>
                         : null
                       }
@@ -55,6 +63,7 @@ class Beer extends React.Component {
                       <img alt='' width='150' height='150' className='image' src={this.props.beer.icon}/>
                     </div>
                     {this.props.user
+                        /* Show add to list buttons if user is logged in */
                       ? <div className='bottom'>
                           <button className='tried-button' onClick={(e) => {
                             this.props.addOrRemoveBeer('POST', this.props.beer.id, 'savebeer')}}>
@@ -65,6 +74,7 @@ class Beer extends React.Component {
                             Add to wishlist
                           </button>
                         </div>
+                        /* Tell user to create account or sign in */
                       : <div style={{'color':'red'}} className='bottom'>
                           Login or create an account to keep track of beers you've tried and add beers to your wishlist!
                       </div>
@@ -73,6 +83,7 @@ class Beer extends React.Component {
                 : null
               }
             </div>
+            /* Tell user nothing was returned from search */
           : <div className='addMore'>Sorry, we couldn't find anything :(</div>
         }
       </div>

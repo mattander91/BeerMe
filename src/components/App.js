@@ -29,11 +29,10 @@ class App extends React.Component {
     this.setUserInfo();
   }
 
+  //retrieves user's info (saved beers for tried list and wishlist from server if logged in
   setUserInfo() {
     let currentUser = sessionStorage.getItem('user');
-    this.setState({
-      currentUser: currentUser
-    });
+    this.setState({ currentUser: currentUser });
     if (currentUser) {
       let url = 'http://127.0.0.1:3001/getUserInfo';
       let data = {username: currentUser};
@@ -43,30 +42,30 @@ class App extends React.Component {
     }
   }
 
-
   handleSpinner() {
     this.setState({showSpinner: !this.state.showSpinner});
   }
 
+  //Adds to, or removes beers from, list of tried beers or wishlist
   addOrRemoveBeer(request, id, endpoint) {
-    this.handleSpinner();
+    // this.handleSpinner();
     let data = {username: this.state.currentUser, beerId: id};
     let url = 'http://127.0.0.1:3001/' + endpoint;
     Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
       this.setUserInfo();
-      this.handleSpinner();
+      // this.handleSpinner();
     });
   }
 
+  //called from Search component, sorts beers based on relevance
   searchedBeers(beerInfo) {
     let sorted = beerInfo.sort((a, b) => {
       return b.relevance - a.relevance;
     });
-    this.setState({
-      beers: sorted
-    });
+    this.setState({ beers: sorted });
   }
 
+  //Click handling for clicks for home page, wishlist, tried beer list, and logout on header bar
   handleClicks(click) {
     if (click === 'Home') {
       this.setState({ currentState: 'Home', beers: [] });

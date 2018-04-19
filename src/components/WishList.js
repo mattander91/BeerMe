@@ -13,6 +13,9 @@ class WishList extends React.Component {
     this.mouseOver = this.mouseOver.bind(this);
   }
 
+  //linked to expand button on top right of each beer div.
+  //expands divs to show more info including full description, beer image, brewer logo/image,
+  //  ABV, and buttons for adding to lists when logged in.
   expand() {
     this.setState({
       showItems: !this.state.showItems,
@@ -21,6 +24,7 @@ class WishList extends React.Component {
     });
   }
 
+  //handles hovering over brewer name to show brewer icon/logo
   mouseOver(){
     this.setState({hover: !this.state.hover});
   }
@@ -31,6 +35,7 @@ class WishList extends React.Component {
     return (
       <div>
         {!this.props.beer.noData
+          /* Show wishlist beers if any */
           ? <div className='beers-wishlist' style={{height: divHeight}}>
               <div className='beersTitle-wishlist'>{this.props.beer.name}
                 <button className='expand-wishlist' onClick={(event) => {
@@ -64,7 +69,10 @@ class WishList extends React.Component {
                 : null
               }
             </div>
-          : <div className='addMore-wishlist' onClick={(e) => {this.props.handleClicks('Home')}}>Add more beers to your wishlist!</div>
+            /* Suggest adding more to wishlist if none */
+          : <div className='addMore-wishlist' onClick={(e) => {this.props.handleClicks('Home')}}>
+              Add more beers to your wishlist!
+            </div>
         }
       </div>
     )

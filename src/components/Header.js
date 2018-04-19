@@ -1,6 +1,8 @@
 import React from 'react';
 import Helpers from '../Helpers.js';
 
+
+//Header bar with Home, About, Tried, Wishlist, and Logout buttons
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +18,7 @@ class Header extends React.Component {
     this.submitForm = this.submitForm.bind(this);
   }
 
+  //Handles form submission for logging in or signing up a new user
   submitForm(e, caller, endpoint) {
     e.preventDefault();
     let data = {
@@ -34,6 +37,7 @@ class Header extends React.Component {
     }
   }
 
+  //Prevents HTML injection to form inputs
   checkInput(input) {
     const forbidden = ['>', '<', '}', '{', '.', ',', '|'];
     for (let i = 0; i < forbidden.length; i++) {
@@ -44,6 +48,7 @@ class Header extends React.Component {
     return true;
   }
 
+  //Handles input for login and signup forms
   handleInput(e, input) {
     let inputValue = e.target.value;
     if (input === 'password') {
@@ -53,6 +58,8 @@ class Header extends React.Component {
     }
   }
 
+  //Handles clicks for clicking on login and signup titles in header
+  //Shows/hides form based on what user clicks on
   handleClicks(click) {
     if (click === 'Login') {
       this.setState({clickedSignup: false});
@@ -69,27 +76,23 @@ class Header extends React.Component {
   render() {
     return (
         <div>
+          {/* Show wishlist and tried lists only when user is logged in */}
           {this.props.user
             ? <div className={this.props.headerStyle}>
                 <span className='user'>Welcome, {this.props.user}</span>
                 <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
                 <span className='divider'>|</span>
                 <span onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
-                {!this.props.about
-                  ? <div><span className='divider'>|</span>
-                    <span onClick={(e) => {this.props.handleClicks('About')}}>About</span></div>
-                  : null
-                }
-                {!this.props.hideHome
-                  ? <div>
-                      <span className='divider'>|</span>
-                      <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
-                    </div>
-                  : null
+                <span className='divider'>|</span>
+                {/* Only show About or Home in header if not on About or Home page */}
+                {this.props.about
+                  ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
+                  : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
                 }
                 <span style={{'float': 'right'}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
               </div>
             : <div className={this.props.headerStyle}>
+                {/* Only show About or Home in header if not on About or Home page */}
                 {this.props.about
                   ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
                   : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>

@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let port = process.env.port || 3001;
 
+
+//gets users tried beers and wishlist beers
 app.get('/getUserInfo', (req, res) => {
   let userInfo = {};
   UserModel.findOne({"username": req.query.username}, (err, result) => {
@@ -49,6 +51,8 @@ app.get('/getUserInfo', (req, res) => {
   });
 });
 
+
+//Calls brewerydb API when user searches for beers
 app.get('/beers', (req, res) => {
   helpers.getBeerData(req.query.searched, (data) => {
     if (data) {
@@ -60,6 +64,7 @@ app.get('/beers', (req, res) => {
   });
 });
 
+//Handles new user signup
 app.post('/signup', (req, res) => {
   let newUser = new UserModel({
     username: req.body.username,
@@ -76,6 +81,7 @@ app.post('/signup', (req, res) => {
   });
 });
 
+//Handles user login
 app.post('/login', (req, res) => {
   UserModel.findOne({'username': req.body.username}, (err, data) => {
     if (err) {
