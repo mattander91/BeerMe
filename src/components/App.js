@@ -32,7 +32,7 @@ class App extends React.Component {
     let currentUser = sessionStorage.getItem('user');
     this.setState({ currentUser: currentUser });
     if (currentUser) {
-      let url = 'http://127.0.0.1:3001/getUserInfo';
+      let url = 'https://beerme.herokuapp.com/getUserInfo';
       let data = {username: currentUser};
       Helpers.ajaxCalls('GET', url, data, 'setUserInfo', (info) => {
         this.setState({tried: info.beers, wishList: info.wishList});
@@ -43,7 +43,7 @@ class App extends React.Component {
   //Adds to, or removes beers from, list of tried beers or wishlist
   addOrRemoveBeer(request, id, endpoint) {
     let data = {username: this.state.currentUser, beerId: id};
-    let url = 'http://127.0.0.1:3001/' + endpoint;
+    let url = 'https://beerme.herokuapp.com/' + endpoint;
     Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
       this.setUserInfo();
     });
