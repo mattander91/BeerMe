@@ -1,7 +1,6 @@
 const request = require('request');
-const config = require('../config.js');
 const BreweryDb = require('brewerydb-node');
-const brewdb = new BreweryDb(`${config.key}`);
+const brewdb = new BreweryDb('de2f8300472e9694eaeb25f095e18d72');
 
 let getBeerData = (search, callback) => {
   brewdb.search.beers({q: search, withBreweries: 'Y'}, (err, data) => {
