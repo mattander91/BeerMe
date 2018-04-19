@@ -1,6 +1,6 @@
 const request = require('request');
 const BreweryDb = require('brewerydb-node');
-const brewdb = new BreweryDb('de2f8300472e9694eaeb25f095e18d72');
+const brewdb = new BreweryDb(process.env.KEY);
 
 
 //Calls brewery API search endpoint
