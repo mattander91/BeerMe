@@ -105,7 +105,7 @@ app.post('/saveBeer', (req, res) => {
       // console.log('error updating beer: ', err);
       res.sendStatus(500);
     } else {
-      console.log('updated');
+      // console.log('updated');
       res.sendStatus(201);
     }
   });
