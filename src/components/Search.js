@@ -34,6 +34,7 @@ class Search extends React.Component {
         if (data[0].noData) {
           this.props.searchedBeers(data);
         } else {
+          console.log('data: ', data);
           this.props.searchedBeers(data); //Sets beer array state on App component
         }
         this.handleLoader();  //Turn loading gif off

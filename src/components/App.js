@@ -51,6 +51,7 @@ class App extends React.Component {
 
   //called from Search component, sorts beers based on relevance
   searchedBeers(beerInfo) {
+    console.log('beerInfo called: ', beerInfo);
     let sorted = beerInfo.sort((a, b) => {
       return b.relevance - a.relevance;
     });
