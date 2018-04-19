@@ -485,4 +485,29 @@ background-image: url("img/Beer-Background.jpg");
   font-size: 18px;
 }
 
+.check-left {
+/*   border: 1px solid black; */
+  margin-right: 5px;
+  width: 40px;
+  height: 40px;
+  vertical-align: bottom;
+}
+
+.check-left img {
+  height: 40px;
+  vertical-align: bottom;
+}
+
+.check-right {
+/*   border: 1px solid black; */
+  margin-right: 5px;
+  width: 40px;
+  height: 40px;
+  vertical-align: bottom;
+}
+
+.check-right img {
+  height: 40px;
+  vertical-align: bottom;
+}
 

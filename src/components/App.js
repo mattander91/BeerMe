@@ -15,14 +15,12 @@ class App extends React.Component {
       beers: [],
       tried: [],
       wishList: [],
-      currentUser: '',
-      showSpinner: false
+      currentUser: ''
     }
     this.searchedBeers = this.searchedBeers.bind(this);
     this.setUserInfo = this.setUserInfo.bind(this);
     this.handleClicks = this.handleClicks.bind(this);
     this.addOrRemoveBeer = this.addOrRemoveBeer.bind(this);
-    this.handleSpinner = this.handleSpinner.bind(this);
   }
 
   componentDidMount() {
@@ -42,18 +40,12 @@ class App extends React.Component {
     }
   }
 
-  handleSpinner() {
-    this.setState({showSpinner: !this.state.showSpinner});
-  }
-
   //Adds to, or removes beers from, list of tried beers or wishlist
   addOrRemoveBeer(request, id, endpoint) {
-    // this.handleSpinner();
     let data = {username: this.state.currentUser, beerId: id};
     let url = 'http://127.0.0.1:3001/' + endpoint;
     Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
       this.setUserInfo();
-      // this.handleSpinner();
     });
   }
 
@@ -74,7 +66,7 @@ class App extends React.Component {
         this.setState({ currentUser: '', beers: [], currentState: 'Home' });
     } else if (click === 'Wishlist') {
         this.setUserInfo();
-        this.setState({currentState: 'wishList'});
+        this.setState({currentState: 'WishList'});
     } else if (click === 'Tried') {
         this.setUserInfo();
         this.setState({currentState: 'Tried'});
@@ -111,6 +103,7 @@ class App extends React.Component {
             user={this.state.currentUser}
             headerStyle={'header-tried'}
             handleClicks={this.handleClicks}
+            underline={this.state.currentState}
           />
           <TriedList
             user={this.state.currentUser}
@@ -121,13 +114,14 @@ class App extends React.Component {
           />
         </div>
       )
-    } else if (this.state.currentState === 'wishList') {
+    } else if (this.state.currentState === 'WishList') {
       return (
         <div>
           <Header
             user={this.state.currentUser}
             headerStyle={'header-wishList'}
             handleClicks={this.handleClicks}
+            underline={this.state.currentState}
           />
           <WishListList
             user={this.state.currentUser}

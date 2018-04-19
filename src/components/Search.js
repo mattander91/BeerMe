@@ -19,12 +19,10 @@ class Search extends React.Component {
     this.setState({ term: searchedTerm });
   }
 
-
   //Turn loading gif off or on
   handleLoader() {
     this.setState({showLoader: !this.state.showLoader});
   }
-
 
   search(e) {
     e.preventDefault();
@@ -32,25 +30,11 @@ class Search extends React.Component {
       this.handleLoader();  //Turn loading gif on
       let data = { searched: Helpers.preventInjection(this.state.term) }; //Prevents html injection
       let url = 'http://127.0.0.1:3001/beers';
-      let beerList = [];
       Helpers.ajaxCalls('GET', url, data, 'search', (data) => {
-        let parsed = JSON.parse(data);
-        if (parsed[0].noData) {
-          this.props.searchedBeers(parsed);
+        if (data[0].noData) {
+          this.props.searchedBeers(data);
         } else {
-          parsed.forEach((beer) => {
-            beerList.push({
-              name: beer.name,
-              id: beer.id,
-              des: beer.description,
-              icon: beer.icon,
-              abv: beer.abv,
-              brewer: beer.brewer,
-              brewerIcon: beer.brewerIcon,
-              relevance: beer.relevance
-            });
-          });
-          this.props.searchedBeers(beerList); //Sets beer array state on App component
+          this.props.searchedBeers(data); //Sets beer array state on App component
         }
         this.handleLoader();  //Turn loading gif off
         this.setState({term: ''});

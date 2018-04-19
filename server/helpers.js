@@ -18,9 +18,10 @@ let getBeerData = (search, callback) => {
           beerData.push({
             name: data[i].name,
             id: data[i].id,
-            description: data[i].description || data[i].style.description,
+            des: data[i].description || data[i].style.description,
             icon: icon,
             abv: data[i].abv,
+            ibu: data[i].ibu,
             brewer: data[i].breweries[0].name,
             brewerIcon: brewIcon,
             relevance: relevance
@@ -29,7 +30,7 @@ let getBeerData = (search, callback) => {
       }
       callback(beerData);
     } else if (err) {
-      console.log('error getting data: ', err);
+      // console.log('error getting data: ', err);
       callback([{noData: true}]);
     } else {
       callback([{noData: true}]);
@@ -37,6 +38,7 @@ let getBeerData = (search, callback) => {
   });
 }
 
+ //Aadds relevance each time a users search word(s) is found in the combined brewery + beer name
 let addRelevance = (search, beerName, brewer) => {
   let relevance = 0;
   let exp = /[a-zA-Z0-9\s]/g;
@@ -67,7 +69,8 @@ let getBeerId = (ids, params, callback) => {
             id: data[i].id,
             des: data[i].description || data[i].style.description,
             icon: icon,
-            abv: data[i].abv + '%' || 'N/A',
+            abv: data[i].abv,
+            ibu: data[i].ibu,
             brewer: data[i].breweries[0].name || 'brewer not available',
             brewerIcon: brewIcon
           });
@@ -75,7 +78,7 @@ let getBeerId = (ids, params, callback) => {
         callback(beerData);
       }
       else if (err) {
-        console.log('error getting ids: ', err);
+        // console.log('error getting ids: ', err);
       }
     });
   } else {

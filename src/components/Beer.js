@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 //Beers returned from Search
 class Beer extends React.Component {
   constructor(props) {
@@ -9,10 +8,14 @@ class Beer extends React.Component {
       showItems: false,
       height: true,
       description: true,
-      hover: false
+      hover: false,
+      showLeftCheck: false,
+      showRightCheck: false
     }
     this.expand = this.expand.bind(this);
     this.mouseOver = this.mouseOver.bind(this);
+    this.showRightCheck = this.showRightCheck.bind(this);
+    this.showLeftCheck = this.showLeftCheck.bind(this);
   }
 
   //linked to expand button on top right of each beer div.
@@ -29,6 +32,20 @@ class Beer extends React.Component {
   //handles hovering over brewer name to show brewer icon/logo
   mouseOver() {
     this.setState({hover: !this.state.hover});
+  }
+
+  showLeftCheck() {
+    this.setState({showLeftCheck: !this.state.showLeftCheck});
+    setTimeout(() => {
+      this.setState({showLeftCheck: !this.state.showLeftCheck});
+    }, 1000);
+  }
+
+  showRightCheck() {
+    this.setState({showRightCheck: !this.state.showRightCheck});
+    setTimeout(() => {
+      this.setState({showRightCheck: !this.state.showRightCheck});
+    }, 500);
   }
 
   render() {
@@ -55,7 +72,12 @@ class Beer extends React.Component {
                       <p>{this.props.beer.des}</p>
                       {this.props.beer.abv
                         /* Show ABV if provided */
-                        ? <p style={{'fontWeight': '900'}}>ABV: {this.props.beer.abv}%</p>
+                        ? <p style={{'fontWeight': '700'}}>ABV: {this.props.beer.abv}%</p>
+                        : null
+                      }
+                      {this.props.beer.ibu
+                        /* Show ABV if provided */
+                        ? <p style={{'fontWeight': '700'}}>IBU: {this.props.beer.ibu}</p>
                         : null
                       }
                     </div>
@@ -65,11 +87,25 @@ class Beer extends React.Component {
                     {this.props.user
                         /* Show add to list buttons if user is logged in */
                       ? <div className='bottom'>
+                          <div className="check-left">
+                            {this.state.showLeftCheck
+                              ? <img alt='' src='img/green-check.png'/>
+                              : null
+                            }
+                          </div>
                           <button className='tried-button' onClick={(e) => {
+                            this.showLeftCheck(e)
                             this.props.addOrRemoveBeer('POST', this.props.beer.id, 'savebeer')}}>
-                            Add to my list
+                            Add to tried beers list
                           </button>
+                          <div className="check-right">
+                            {this.state.showRightCheck
+                              ? <img alt='' src='img/green-check.png'/>
+                              : null
+                            }
+                          </div>
                           <button className='wishlist-button' onClick={(e) => {
+                            this.showRightCheck(e)
                             this.props.addOrRemoveBeer('POST', this.props.beer.id, 'wishList')}}>
                             Add to wishlist
                           </button>

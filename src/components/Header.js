@@ -1,7 +1,6 @@
 import React from 'react';
 import Helpers from '../Helpers.js';
 
-
 //Header bar with Home, About, Tried, Wishlist, and Logout buttons
 class Header extends React.Component {
   constructor(props) {
@@ -80,14 +79,30 @@ class Header extends React.Component {
           {this.props.user
             ? <div className={this.props.headerStyle}>
                 <span className='user'>Welcome, {this.props.user}</span>
-                <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
+                {this.props.underline === 'WishList'
+                  ? <span style={{'font-weight':'900', 'text-decoration':'underline'}} onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
+                  : <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
+                }
                 <span className='divider'>|</span>
-                <span onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
-                <span className='divider'>|</span>
-                {/* Only show About or Home in header if not on About or Home page */}
-                {this.props.about
-                  ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
-                  : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
+                {this.props.underline === 'Tried'
+                  ? <span style={{'font-weight':'900', 'text-decoration':'underline'}} onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
+                  : <span onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
+                }
+                {/* Only show About in header if not on About page */}
+                {!this.props.about
+                  ? <div>
+                      <span className='divider'>|</span>
+                      <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
+                    </div>
+                  : null
+                }
+              {/* Only show Home in header if not on Home page */}
+                {!this.props.hideHome
+                  ? <div>
+                      <span className='divider'>|</span>
+                      <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
+                    </div>
+                  : null
                 }
                 <span style={{'float': 'right'}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
               </div>
@@ -139,6 +154,5 @@ class Header extends React.Component {
     );
   }
 }
-
 
 export default Header;

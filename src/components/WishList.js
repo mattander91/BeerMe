@@ -54,7 +54,16 @@ class WishList extends React.Component {
                 ? <div className='wrapper'>
                     <div className='longDescription'>
                       <p>{this.props.beer.des}</p>
-                      <p style={{'fontWeight': '900'}}>ABV: {this.props.beer.abv}</p>
+                      {this.props.beer.abv
+                        /* Show ABV if provided */
+                        ? <p style={{'fontWeight': '900'}}>ABV: {this.props.beer.abv}%</p>
+                        : null
+                      }
+                      {this.props.beer.ibu
+                        /* Show ABV if provided */
+                        ? <p style={{'fontWeight': '900'}}>IBU: {this.props.beer.ibu}</p>
+                        : null
+                      }
                     </div>
                     <div className='img'>
                       <img alt='' width='150' height='150' className='image' src={this.props.beer.icon}/>

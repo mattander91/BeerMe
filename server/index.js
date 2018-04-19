@@ -56,9 +56,9 @@ app.get('/getUserInfo', (req, res) => {
 app.get('/beers', (req, res) => {
   helpers.getBeerData(req.query.searched, (data) => {
     if (data) {
-      res.status(200).send(JSON.stringify(data));
+      res.status(200).send(data);
     } else {
-      console.log('failed to get brewdb data');
+      // console.log('failed to get brewdb data');
       res.sendStatus(500);
     }
   });
@@ -72,10 +72,10 @@ app.post('/signup', (req, res) => {
   });
   newUser.save(err => {
     if (err) {
-      console.log('error ' + err);
+      // console.log('error ' + err);
       res.sendStatus(500);
     } else {
-      console.log('user ' + req.body.username + ' saved');
+      // console.log('user ' + req.body.username + ' saved');
       res.sendStatus(202);
     }
   });
@@ -91,7 +91,7 @@ app.post('/login', (req, res) => {
         if (match) {
           res.sendStatus(201);
         } else {
-          console.log('user not found/invalid credentials: ');
+          // console.log('user not found/invalid credentials: ');
           res.sendStatus(500);
         }
       });
@@ -102,7 +102,7 @@ app.post('/login', (req, res) => {
 app.post('/saveBeer', (req, res) => {
   UserModel.update({"username": req.body.username}, {$addToSet: {beers: req.body.beerId}}, (err, data) => {
     if (err) {
-      console.log('error updating beer: ', err);
+      // console.log('error updating beer: ', err);
       res.sendStatus(500);
     } else {
       console.log('updated');
@@ -114,10 +114,10 @@ app.post('/saveBeer', (req, res) => {
 app.post('/wishList', (req, res) => {
   UserModel.update({"username": req.body.username}, {$addToSet: {wishList: req.body.beerId}}, (err, data) => {
     if (err) {
-      console.log('error updating beer: ', err);
+      // console.log('error updating beer: ', err);
       res.sendStatus(500);
     } else {
-      console.log('updated');
+      // console.log('updated');
       res.sendStatus(201);
     }
   });
@@ -126,7 +126,7 @@ app.post('/wishList', (req, res) => {
 app.delete('/deleteBeer', (req, res) => {
   UserModel.update({username: req.body.username}, {$pull: {beers: req.body.beerId}}, (err, data) => {
     if (err) {
-      console.log('error removing beer: ', err);
+      // console.log('error removing beer: ', err);
       res.sendStatus(500);
     } else {
       res.sendStatus(202);
@@ -137,7 +137,7 @@ app.delete('/deleteBeer', (req, res) => {
 app.delete('/deleteWishlistBeer', (req, res) => {
   UserModel.update({username: req.body.username}, {$pull: {wishList: req.body.beerId}}, (err, data) => {
     if (err) {
-      console.log('error removing beer: ', err);
+      // console.log('error removing beer: ', err);
       res.sendStatus(500);
     } else {
       res.sendStatus(202);
@@ -147,5 +147,5 @@ app.delete('/deleteWishlistBeer', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  // console.log(`listening on port ${port}`);
 });
