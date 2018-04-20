@@ -24,7 +24,7 @@ class Header extends React.Component {
       username: this.state.username,
       password: this.state.password
     }
-    let url = 'http://127.0.0.1:3000/' + endpoint;
+    let url = 'https://beerme.herokuapp.com/' + endpoint;
     if (this.checkInput(data.username) && this.checkInput(data.password)) {
       Helpers.ajaxCalls('POST', url, data, caller, (data) => {
         sessionStorage.setItem('user', this.state.username);

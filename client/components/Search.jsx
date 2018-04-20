@@ -29,7 +29,7 @@ class Search extends React.Component {
     if (this.state.term.length > 0) { //only send call if user searched for something
       this.handleLoader();  //Turn loading gif on
       let data = { searched: Helpers.preventInjection(this.state.term) }; //Prevents html injection
-      let url = 'http://localhost:3000/beers';
+      let url = 'https://beerme.herokuapp.com/beers';
       Helpers.ajaxCalls('GET', url, data, 'search', (data) => {
         if (data[0].noData) {
           this.props.searchedBeers(data);

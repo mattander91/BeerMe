@@ -34,7 +34,7 @@ class App extends React.Component {
     let currentUser = sessionStorage.getItem('user');
     this.setState({ currentUser: currentUser });
     if (currentUser) {
-      let url = 'http://localhost:3000/getUserInfo';
+      let url = 'https://beerme.herokuapp.com/getUserInfo';
       let data = {username: currentUser};
       Helpers.ajaxCalls('GET', url, data, 'setUserInfo', (info) => {
         this.setState({tried: info.beers, wishList: info.wishList});
