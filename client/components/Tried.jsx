@@ -1,4 +1,4 @@
-import React from 'react';
+const React = require('react');
 
 class Tried extends React.Component {
   constructor(props) {
@@ -88,5 +88,5 @@ class Tried extends React.Component {
   }
 }
 
-export default Tried;
+module.exports = Tried;
 

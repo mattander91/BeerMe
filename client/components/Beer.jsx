@@ -1,4 +1,4 @@
-import React from 'react';
+const React = require('react');
 
 //Beers returned from Search
 class Beer extends React.Component {
@@ -127,4 +127,4 @@ class Beer extends React.Component {
   }
 }
 
-export default Beer;
+module.exports = Beer;

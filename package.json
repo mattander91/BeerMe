@@ -4,11 +4,10 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "server-dev": "nodemon -L server/index.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "postinstall": "webpack -p --config ./webpack.config.js --progress"
   },
   "repository": {
     "type": "git",
@@ -21,21 +20,23 @@
     "url": "https://github.com/mattander91/BeerMe/issues"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "brewerydb-node": "0.0.1",
-    "cookie-parser": "^1.4.3",
-    "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
     "jquery": "^3.2.1",
     "mongoose": "^4.13.7",
     "nodemon": "~1.12.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-favicon": "0.0.14",
-    "react-scripts": "1.1.0",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "webpack": "^3.8.1",
+    "path": "^0.12.7"
   }
 }

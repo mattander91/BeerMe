@@ -1,11 +1,13 @@
-import React from 'react';
-import BeerList from './BeerList.js';
-import Search from './Search.js';
-import Header from './Header.js';
-import WishListList from './WishListList.js';
-import TriedList from './TriedList.js';
-import About from './About.js';
-import Helpers from '../Helpers.js';
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Favicon = require('react-favicon');
+const About = require('./components/About.jsx');
+const BeerList = require('./components/BeerList.jsx');
+const Search = require('./components/Search.jsx');
+const Header = require('./components/Header.jsx');
+const WishListList = require('./components/WishListList.jsx');
+const TriedList = require('./components/TriedList.jsx');
+const Helpers = require('./Helpers.js');
 
 class App extends React.Component {
   constructor(props) {
@@ -32,7 +34,7 @@ class App extends React.Component {
     let currentUser = sessionStorage.getItem('user');
     this.setState({ currentUser: currentUser });
     if (currentUser) {
-      let url = 'https://beerme.herokuapp.com/getUserInfo';
+      let url = 'http://localhost:3000/getUserInfo';
       let data = {username: currentUser};
       Helpers.ajaxCalls('GET', url, data, 'setUserInfo', (info) => {
         this.setState({tried: info.beers, wishList: info.wishList});
@@ -43,7 +45,7 @@ class App extends React.Component {
   //Adds to, or removes beers from, list of tried beers or wishlist
   addOrRemoveBeer(request, id, endpoint) {
     let data = {username: this.state.currentUser, beerId: id};
-    let url = 'https://beerme.herokuapp.com/' + endpoint;
+    let url = 'http://localhost:3000/' + endpoint;
     Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
       this.setUserInfo();
     });
@@ -149,4 +151,10 @@ class App extends React.Component {
 
 }
 
-export default App;
+ReactDOM.render(
+  <div>
+    <App />
+    <Favicon url='img/beer-favicon.png'/>
+  </div>
+  , document.getElementById('app')
+);

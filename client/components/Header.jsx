@@ -1,5 +1,5 @@
-import React from 'react';
-import Helpers from '../Helpers.js';
+const React = require('react');
+const Helpers = require('../Helpers.js');
 
 //Header bar with Home, About, Tried, Wishlist, and Logout buttons
 class Header extends React.Component {
@@ -24,7 +24,7 @@ class Header extends React.Component {
       username: this.state.username,
       password: this.state.password
     }
-    let url = 'http://127.0.0.1:3001/' + endpoint;
+    let url = 'http://127.0.0.1:3000/' + endpoint;
     if (this.checkInput(data.username) && this.checkInput(data.password)) {
       Helpers.ajaxCalls('POST', url, data, caller, (data) => {
         sessionStorage.setItem('user', this.state.username);
@@ -155,4 +155,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+module.exports = Header;

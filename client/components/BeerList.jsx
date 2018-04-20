@@ -1,5 +1,5 @@
-import React from 'react';
-import Beer from './Beer';
+const React = require('react');
+const Beer = require('./Beer.jsx');
 
 const BeerList = (props) => (
   <div>
@@ -16,4 +16,4 @@ const BeerList = (props) => (
   </div>
 );
 
-export default BeerList;
+module.exports = BeerList;

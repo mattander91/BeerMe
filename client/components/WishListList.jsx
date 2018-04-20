@@ -1,5 +1,5 @@
-import React from 'react';
-import WishList from './WishList';
+const React = require('react');
+const WishList = require('./WishList.jsx');
 
 const WishListList = (props) => (
   <div>
@@ -18,4 +18,4 @@ const WishListList = (props) => (
   </div>
 );
 
-export default WishListList;
+module.exports = WishListList;

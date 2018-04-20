@@ -1,5 +1,5 @@
-import React from 'react';
-import Tried from './Tried';
+const React = require('react');
+const Tried = require('./Tried.jsx');
 
 const TriedList = (props) => (
   <div>
@@ -19,4 +19,4 @@ const TriedList = (props) => (
   </div>
 );
 
-export default TriedList;
+module.exports = TriedList;

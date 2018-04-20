@@ -6,6 +6,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
+const path = require('path');
 
 let app = express();
 
@@ -20,9 +21,9 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../client/dist/')));
 
-let port = process.env.PORT || 3001;
-
+let port = process.env.PORT || 3000;
 
 //gets users tried beers and wishlist beers
 app.get('/getUserInfo', (req, res) => {
@@ -145,7 +146,6 @@ app.delete('/deleteWishlistBeer', (req, res) => {
   });
 });
 
-
 app.listen(port, () => {
-  // console.log(`listening on port ${port}`);
+  console.log('listening on port ' + port);
 });

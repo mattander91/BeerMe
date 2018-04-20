@@ -1,4 +1,4 @@
-import React from 'react';
+const React = require('react');
 
 class WishList extends React.Component {
   constructor(props) {
@@ -88,4 +88,4 @@ class WishList extends React.Component {
   }
 }
 
-export default WishList;
+module.exports = WishList;
