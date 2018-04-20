@@ -12,14 +12,16 @@ let getBeerData = (search, callback) => {
       for (let i = 0; i < data.length; i++) {
         let icon = '';
         let brewIcon = '';
+        let styleDescription = '';
         data[i].labels ? icon = data[i].labels.medium : icon = 'img/beer-image.jpg';
         data[i].breweries[0].images ? brewIcon = data[i].breweries[0].images.medium : brewIcon = null;
+        data[i].style ? styleDescription = data[i].style.description : styleDescription = '';
         let relevance = addRelevance(search, data[i].name, data[i].breweries[0].name);
         if (relevance > 0) {
           beerData.push({
             name: data[i].name,
             id: data[i].id,
-            des: data[i].description || data[i].style.description,
+            des: data[i].description || styleDescription,
             icon: icon,
             abv: data[i].abv,
             ibu: data[i].ibu,
@@ -63,12 +65,14 @@ let getBeerId = (ids, params, callback) => {
         for (let i = 0; i < data.length; i++) {
           let icon = '';
           let brewIcon = '';
+          let styleDescription = '';
           data[i].labels ? icon = data[i].labels.medium : icon = 'img/beer-image.jpg';
           data[i].breweries[0].images ? brewIcon = data[i].breweries[0].images.medium : brewIcon = null;
+          data[i].style ? styleDescription = data[i].style.description : styleDescription = '';
           beerData.push({
             name: data[i].name,
             id: data[i].id,
-            des: data[i].description || data[i].style.description,
+            des: data[i].description || styleDescription,
             icon: icon,
             abv: data[i].abv,
             ibu: data[i].ibu,
