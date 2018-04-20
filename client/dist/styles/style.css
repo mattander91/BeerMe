@@ -23,12 +23,15 @@ background-image: url("../img/BeerBackground.jpg");
   font-size: 18px;
 }
 
-.header span {
-  margin-left: 25px;
-}
-
 .header div {
   display: inline-block;
+  text-align: center;
+}
+
+.header-selected {
+  font-weight: 900;
+  text-decoration: underline;
+  cursor: auto;
 }
 
 #title {
@@ -53,6 +56,8 @@ background-image: url("../img/BeerBackground.jpg");
 .divider {
   font-size: 20px;
   font-weight: 900;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 
@@ -219,12 +224,9 @@ background-image: url("../img/BeerBackground.jpg");
   font-size: 18px;
 }
 
-.header-tried span {
-  margin-left: 25px;
-}
-
 .header-tried div {
   display: inline-block;
+  text-align: center;
 }
 
 .expand-tried {
@@ -316,12 +318,9 @@ background-image: url("../img/BeerBackground.jpg");
   font-size: 18px;
 }
 
-.header-wishList span {
-  margin-left: 25px;
-}
-
 .header-wishList div {
   display: inline-block;
+  text-align: center;
 }
 
 .expand-wishlist {

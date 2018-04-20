@@ -77,7 +77,7 @@ class App extends React.Component {
     }
   }
 
-  render() {
+    render() {
     if (this.state.currentState === 'Home') {
       return (
         <div>
@@ -85,8 +85,8 @@ class App extends React.Component {
             user={this.state.currentUser}
             setUserInfo={this.setUserInfo}
             headerStyle={'header'}
-            hideHome={true}
             handleClicks={this.handleClicks}
+            underline={this.state.currentState}
           />
           <Search
             searchedBeers={this.searchedBeers}
@@ -139,8 +139,8 @@ class App extends React.Component {
           <Header
             user={this.state.currentUser}
             headerStyle={'header'}
-            about={true}
             handleClicks={this.handleClicks}
+            underline={this.state.currentState}
           />
           <About/>
         </div>

@@ -75,45 +75,42 @@ class Header extends React.Component {
   render() {
     return (
         <div>
-          {/* Show wishlist and tried lists only when user is logged in */}
           {this.props.user
             ? <div className={this.props.headerStyle}>
                 <span className='user'>Welcome, {this.props.user}</span>
-                {this.props.underline === 'WishList'
-                  ? <span style={{'font-weight':'900', 'text-decoration':'underline'}} onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
-                  : <span onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</span>
+                {this.props.underline === 'Home'
+                  ? <div style={{'width':'50px'}} className='header-selected'>Home</div>
+                  : <div style={{'width':'50px'}} onClick={(e) => {this.props.handleClicks('Home')}}>Home</div>
+                }
+                <span className='divider'>|</span>
+                {this.props.underline === 'About'
+                  ? <div style={{'width':'50px'}} className='header-selected'>About</div>
+                  : <div style={{'width':'50px'}} onClick={(e) => {this.props.handleClicks('About')}}>About</div>
                 }
                 <span className='divider'>|</span>
                 {this.props.underline === 'Tried'
-                  ? <span style={{'font-weight':'900', 'text-decoration':'underline'}} onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
-                  : <span onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</span>
+                  ? <div style={{'width':'133px'}} className='header-selected'>Beers I've Tried</div>
+                  : <div style={{'width':'133px'}} onClick={(e) => {this.props.handleClicks('Tried')}}>Beers I've Tried</div>
                 }
-                {/* Only show About in header if not on About page */}
-                {!this.props.about
-                  ? <div>
-                      <span className='divider'>|</span>
-                      <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
-                    </div>
-                  : null
-                }
-              {/* Only show Home in header if not on Home page */}
-                {!this.props.hideHome
-                  ? <div>
-                      <span className='divider'>|</span>
-                      <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
-                    </div>
-                  : null
+                <span className='divider'>|</span>
+                {this.props.underline === 'WishList'
+                  ? <div style={{'width':'100px'}} className='header-selected'>My Wishlist</div>
+                  : <div style={{'width':'100px'}} onClick={(e) => {this.props.handleClicks('Wishlist')}}>My Wishlist</div>
                 }
                 <span style={{'float': 'right'}} onClick={(e) => {this.handleClicks('Logout')}}>Log out</span>
               </div>
             : <div className={this.props.headerStyle}>
-                {/* Only show About or Home in header if not on About or Home page */}
-                {this.props.about
-                  ? <span onClick={(e) => {this.props.handleClicks('Home')}}>Home</span>
-                  : <span onClick={(e) => {this.props.handleClicks('About')}}>About</span>
+                {this.props.underline === 'Home'
+                  ? <div style={{'width':'50px'}} className='header-selected'>Home</div>
+                  : <div style={{'width':'50px'}} onClick={(e) => {this.props.handleClicks('Home')}}>Home</div>
                 }
                 <span className='divider'>|</span>
-                <span onClick={(e) => {this.handleClicks('Login')}}>Login</span>
+                {this.props.underline === 'About'
+                  ? <div style={{'width':'50px'}} className='header-selected'>About</div>
+                  : <div style={{'width':'50px'}} onClick={(e) => {this.props.handleClicks('About')}}>About</div>
+                }
+                <span className='divider'>|</span>
+                <div onClick={(e) => {this.handleClicks('Login')}}>Login</div>
                 <span className='divider'>|</span>
                 {this.state.clickedLogin
                   ? <div className='auth'>
@@ -131,7 +128,7 @@ class Header extends React.Component {
                     </div>
                   : null
                 }
-                <span onClick={(e) => {this.handleClicks('Signup')}}>Sign Up</span>
+                <div onClick={(e) => {this.handleClicks('Signup')}}>Sign Up</div>
                   {this.state.clickedSignup
                     ? <div className='auth'>
                         <img onClick={(e) => {this.handleClicks('Signup')}} id='x-out' alt='' src='img/X-out.jpg'/>
