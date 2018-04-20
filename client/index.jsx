@@ -45,7 +45,7 @@ class App extends React.Component {
   //Adds to, or removes beers from, list of tried beers or wishlist
   addOrRemoveBeer(request, id, endpoint) {
     let data = {username: this.state.currentUser, beerId: id};
-    let url = 'http://localhost:3000/' + endpoint;
+    let url = 'https://beerme.herokuapp.com/' + endpoint;
     Helpers.ajaxCalls(request, url, data, 'saveBeer', (info) => {
       this.setUserInfo();
     });
